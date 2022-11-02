@@ -136,7 +136,7 @@ export const StateContext = ({ children }) => {
     function HandleChange(event) {
         const searchWord = event.target.value
         setSearchText(searchWord)
-        const newFilter = products.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()))
+        const newFilter = products?.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()))
 
         if (searchWord === '') {
             setSearchItems([])
@@ -192,7 +192,7 @@ export const StateContext = ({ children }) => {
 
     const responseGoogle = (response) => {
         var decoded = jwtDecode(response.credential)
-        console.log(decoded)
+        router.push('/')
     }
 
     return (
