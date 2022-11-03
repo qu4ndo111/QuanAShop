@@ -16,7 +16,7 @@ const Home = ({ products, bannerData, categoryData }) => {
         <p>Speakers of many variations</p>
       </div>
 
-      <div className='best-selling-product-container'>
+      <div className='best-selling-product-container track'>
         {products?.map((product => <Product key={product._id}
           product={product}
         />))}
