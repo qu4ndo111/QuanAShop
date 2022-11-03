@@ -1211,6 +1211,11 @@ h4 {
     font-size: 20px;
   }
 
+  .maylike-products-container {
+    flex-direction: column;
+    overflow: auto;
+  }
+
   .track {
     animation: none;
     width: 100%;

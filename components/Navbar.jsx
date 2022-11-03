@@ -71,7 +71,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className={openSearch ? 'profile-close' : 'profile'}>
-            <Link href={'/buyer/login'}  >
+            <Link href={'/buyer/login'} passHref>
               <FaUser className='user-icon'/>
             </Link>
         </div>
