@@ -21,11 +21,11 @@ const category = ({ categoryName, products }) => {
           }
         }))}
       </div>
-      <Link href={'/'}>
+      <Link href={'/'} legacyBehavior>
         <p className='go-back'>Back to Home page<VscTriangleRight size={10}/></p>
       </Link>
     </div>
-  )
+  );
 }
 
 export const getStaticPaths = async () => {

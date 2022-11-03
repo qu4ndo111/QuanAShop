@@ -31,14 +31,14 @@ const Success = () => {
                     </a>
                     
                 </p>
-                <Link href='/'>
+                <Link href='/' legacyBehavior>
                     <button type='button' width='300px' className='btn'>
                         Continue Shopping
                     </button>
                 </Link>
             </div>
         </div>
-    )
+    );
 }
 
 export default Success
