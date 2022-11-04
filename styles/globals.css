@@ -41,6 +41,20 @@ h4 {
   padding: 1em;
 }
 
+.back-to-top {
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  cursor: pointer;
+  transform: transform .4s ease;
+}
+
+.back-to-top:hover {
+  transform: scale(1.1, 1.1);
+}
+
 /* Navbar */
 
 .navbar-container {
