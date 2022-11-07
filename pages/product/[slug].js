@@ -1,17 +1,19 @@
 import React, { useState, useContext } from 'react'
-import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiFillCamera } from 'react-icons/ai'
+import { FaUser } from 'react-icons/fa'
 import { urlFor, client } from '../../lib/client'
 import Product from '../../components/Product'
 import { Context } from '../../context/StateContext'
 
+
 const ProductDetails = ({ product, products }) => {
-    const { image, name, details, price, categories } = product
+    const { image, name, details, price, categories, _id, comment } = product
 
     const [index, setIndex] = useState(0)
 
     const useStateContext = useContext(Context)
 
-    const { decQty, incQty, qty, onAdd, setShowCart} = useStateContext
+    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData } = useStateContext
 
     const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
 
@@ -21,25 +23,30 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
+    function HandleSubmitComment(event) {
+        event.preventDefault()
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ name: reviewData.name, comment: reviewData.comment }]).commit({ autoGenerateArrayKeys: true })
+    }
+
     return (
         <div>
             <div className='product-detail-container'>
                 <div>
                     <div className='product-detail-image'>
                         <img src={urlFor(image && image[index])}
-                        className='product-detail-image'
+                            className='product-detail-image'
                         />
                     </div>
                     <div className='small-image-container'>
-                    {image?.map((item, i) => (
-                        <img 
-                            key={i}
-                            src={urlFor(item)}
-                            className={i === index ? 'small-image selected-image': 'small-image'}
-                            onMouseEnter={() => setIndex(i)}
-                        />
-                    ))}
-                </div>
+                        {image?.map((item, i) => (
+                            <img
+                                key={i}
+                                src={urlFor(item)}
+                                className={i === index ? 'small-image selected-image' : 'small-image'}
+                                onMouseEnter={() => setIndex(i)}
+                            />
+                        ))}
+                    </div>
                 </div>
                 <div className='product-content-container'>
                     <div className='product-detail-desc'>
@@ -65,7 +72,7 @@ const ProductDetails = ({ product, products }) => {
                                 <AiOutlineMinus />
                             </span>
                             <span className='num'
-                                >
+                            >
                                 {qty}
                             </span>
                             <span className='plus'
@@ -84,17 +91,62 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                 </div>
             </div>
-                <div className='maylike-products-wrapper'>
-                    <h2>You may also like</h2>
-                    <div className='marquee'>
-                        <div className='maylike-products-container track'>
-                            {similarProduct.map((item) => (
-                                <Product key={item._id} 
-                                product={item}/>
+            <div className='maylike-products-wrapper'>
+                <h2>You may also like</h2>
+                <div className='marquee'>
+                    <div className='maylike-products-container track'>
+                        {similarProduct.map((item) => (
+                            <Product key={item._id}
+                                product={item} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form className='user-review-container' onSubmit={HandleSubmitComment}>
+                    <h2>Review product</h2>
+                    <input
+                        type='text'
+                        placeholder='Please enter your name'
+                        onChange={HandleChangeComment}
+                        value={reviewData.name}
+                        name='name'
+                        required
+
+                    />
+                    <textarea
+                        placeholder='Enter your comment here'
+                        onChange={HandleChangeComment}
+                        value={reviewData.comment}
+                        name='comment'
+                        required
+                    />
+                    <div className='form-button'>
+                        <label htmlFor='image-upload' className='button-upload'>
+                            <input
+                                type='file'
+                                id='image-upload'
+                            />
+                            <AiFillCamera size={30} />
+                        </label>
+                        <button type='submit'>Post comment</button>
+                    </div>
+                    <div>
+                        <div>
+                            {comment?.map(data => (
+                                <div className='feedback' key={data._key}>
+                                    <FaUser className='user-icon' size={30} />
+                                    <div >
+                                        <h3>{data.name}</h3>
+                                        <p>{data.comment}</p>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
-                </div>
+                </form>
+            </div>
+
         </div>
     )
 }

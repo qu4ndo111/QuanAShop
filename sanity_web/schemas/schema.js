@@ -5,6 +5,7 @@ import product from './product';
 import banner from './banner'
 import user from './user';
 import category from './category';
+import comment from './comment';
 
 export default createSchema({
   name: 'default',
@@ -12,6 +13,7 @@ export default createSchema({
     product,
     banner,
     user,
-    category
+    category,
+    comment
   ]),
 })

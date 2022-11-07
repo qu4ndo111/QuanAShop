@@ -40,6 +40,12 @@ export const StateContext = ({ children }) => {
         repeatPassword: ''
     })
 
+    const [reviewData, setReviewData] = useState({
+        name: '',
+        comment: ''
+    })
+
+    const [userReview, setUserReview] = useState([])
 
     let foundProduct
     let index
@@ -190,6 +196,18 @@ export const StateContext = ({ children }) => {
         router.push('/buyer/login')
     }
 
+    function HandleChangeComment(event) {
+        const { name, value } = event.target
+        setReviewData(prevData => {
+            return {
+                ...prevData,
+                [name]: value
+            }
+        })
+    }
+
+    
+
     const responseGoogle = (response) => {
         var decoded = jwtDecode(response.credential)
         router.push('/')
@@ -236,7 +254,11 @@ export const StateContext = ({ children }) => {
                 setRegisterForm,
                 HandleRegister,
                 HandleSubmitRegister,
-                responseGoogle
+                responseGoogle,
+                reviewData,
+                userReview,
+                HandleChangeComment,
+                setUserReview
             }}
         >
             {children}

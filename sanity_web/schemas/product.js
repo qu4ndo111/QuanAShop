@@ -42,5 +42,11 @@ export default {
             type: 'array',
             of: [{ type: 'string' }]
         },
+        {
+            name: 'comment',
+            title: 'Comment',
+            type: 'array',
+            of: [{type: 'comment'}]
+        }
     ]
 }

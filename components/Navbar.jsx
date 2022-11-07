@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { AiOutlineShoppingCart, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineShoppingCart, AiOutlineSearch, } from 'react-icons/ai'
 import {FaUser} from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
 import { Cart, SearchItem } from '.'
