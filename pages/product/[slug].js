@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiFillCamera } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
 import { urlFor, client } from '../../lib/client'
@@ -13,9 +13,14 @@ const ProductDetails = ({ product, products }) => {
 
     const useStateContext = useContext(Context)
 
-    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData } = useStateContext
+    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, userReview, setUserReview } = useStateContext
 
     const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
+    
+    useEffect(() => {
+      setUserReview(comment)
+    }, [comment])
+    
 
     const handleBuyNow = () => {
         onAdd(product, qty)
@@ -26,6 +31,7 @@ const ProductDetails = ({ product, products }) => {
     function HandleSubmitComment(event) {
         event.preventDefault()
         client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ name: reviewData.name, comment: reviewData.comment }]).commit({ autoGenerateArrayKeys: true })
+        setUserReview(comment)
     }
 
     return (
@@ -94,7 +100,7 @@ const ProductDetails = ({ product, products }) => {
             <div className='maylike-products-wrapper'>
                 <h2>You may also like</h2>
                 <div className='marquee'>
-                    <div className='maylike-products-container track'>
+                    <div className='maylike-products-container'>
                         {similarProduct.map((item) => (
                             <Product key={item._id}
                                 product={item} />
@@ -133,7 +139,7 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                     <div>
                         <div>
-                            {comment?.map(data => (
+                            {userReview?.map(data => (
                                 <div className='feedback' key={data._key}>
                                     <FaUser className='user-icon' size={30} />
                                     <div >

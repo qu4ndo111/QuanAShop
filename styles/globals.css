@@ -6,9 +6,9 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-::-webkit-scrollbar {
-  width: 0px;
-}
+/* ::-webkit-scrollbar {
+  width: 10px;
+} */
 
 img {
   max-width: 100%;
@@ -86,6 +86,10 @@ h4 {
   width: 100%;
 }
 
+.search-items input:focus {
+  outline: none;
+}
+
 .search-items .search-text {
   position: relative;
   display: flex;
@@ -118,6 +122,7 @@ h4 {
   font-size: 2rem;
   color: #f02d34;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .navbar-container .icon-open {
@@ -126,6 +131,7 @@ h4 {
 
 .search-items .items {
   width: 100%;
+  max-height: 600px;
   overflow: hidden;
   overflow-y: auto;
   position: absolute;
@@ -141,6 +147,7 @@ h4 {
   justify-content: space-between;
   border-bottom: 1px solid #324d67;
   cursor: pointer;
+  padding: 10px 0;
 }
 
 .search-item-container:hover {
@@ -461,18 +468,48 @@ h4 {
   flex-wrap: wrap;
   gap: 15px;
   margin-top: 1em;
-  margin-left: 50px;
-  padding-bottom: 1em;
+  margin-left: 60px;
+  padding-bottom: 2em;
   max-height: 280px;
-  overflow: hidden;
+  text-align: center;
+  
+}
+
+.prev-btn, .next-btn {
+  border: none;
+  background-color: transparent;
+  transform: scale(1, 1);
+  color: #f02d34;
+  cursor: pointer;
+  z-index: 10500;
+}
+
+.prev-btn:hover, .next-btn:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.prev-btn {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  
+}
+
+.next-btn {
+  position: absolute;
+  top: 45%;
+  right: 0;
+  
 }
 
 .product-card {
+  width: 100%;
   cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: #324d67;
   overflow: hidden;
+  margin-bottom: 1em;
 }
 
 .product-card:hover {
@@ -803,18 +840,20 @@ h4 {
 
 .maylike-products-container {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
   margin-top: 2em;
+  margin-left: 5em;
+  max-height: 280px;
 }
 
 .marquee {
-  position: relative;
   height: 400px;
   width: 100%;
   overflow-x: hidden;
 }
 
-.track {
+/* .track {
   white-space: nowrap;
   will-change: transform;
   animation: marquee 10s linear infinite;
@@ -833,7 +872,7 @@ h4 {
   to {
     transform: translateX(-110%);
   }
-}
+} */
 
 .user-review-container {
   width: fit-content;
@@ -974,6 +1013,11 @@ h4 {
   border: 1px solid black;
   padding: .4em;
   cursor: pointer;
+  transform: scale(1, 1);
+}
+
+.profile:hover {
+  transform: scale(1.1, 1.1);
 }
 
 .profile .user-icon {
@@ -1151,6 +1195,10 @@ h4 {
     overflow-y: scroll;
   }
 
+  .best-products {
+    overflow-y: visible;
+  }
+
   .hero-banner-image {
     width: 60%;
     height: 30%;
@@ -1215,7 +1263,7 @@ h4 {
 
   .hero-banner-container button {
     margin-top: 90px;
-    z-index: 10000;
+    z-index: 1000;
     font-weight: 700;
 
   }
@@ -1245,6 +1293,11 @@ h4 {
 
   .product-container {
     margin-top: 10px;
+    
+  }
+
+  .product-card {
+    margin: auto;
   }
 
   .product {
@@ -1317,7 +1370,11 @@ h4 {
   }
 
   .maylike-products-container {
-    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    padding-right: 10px;
+    display: block;
     overflow: auto;
   }
 

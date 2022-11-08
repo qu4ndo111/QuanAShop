@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
+
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import { AiOutlineShoppingCart, AiOutlineSearch, } from 'react-icons/ai'
-import {FaUser} from 'react-icons/fa'
+import { FaUser } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
+
 import { Cart, SearchItem } from '.'
+
 import { Context } from '../context/StateContext'
 
-
-
 const Navbar = () => {
+
+  const router = useRouter()
 
   const useStateContext = React.useContext(Context)
 
@@ -51,7 +56,7 @@ const Navbar = () => {
               onChange={HandleChange}
               value={searchText}
               onFocus={() => setSearching(true)}
-              // onBlur={() => setSearching(false)}
+            // onBlur={() => setSearching(false)}
             />
             {searching && <div className={openSearch ? 'items-open' : 'items'}>
               {
@@ -70,10 +75,8 @@ const Navbar = () => {
             }
           </div>
         </div>
-        <div className={openSearch ? 'profile-close' : 'profile'}>
-            <Link href={'/buyer/login'} passHref>
-              <FaUser className='user-icon'/>
-            </Link>
+        <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => router.push('/buyer/login')} >  
+            <FaUser className='user-icon' />
         </div>
         <button type='button' className={openSearch ? 'cart-icon-close' : 'cart-icon'}
           onClick={() => setShowCart(true)}>
