@@ -36,13 +36,14 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
-    const comments = userReview?.filter(comment => comment.slug === slug)
-    
+    const userComments = userReview?.filter(comment => comment.slug === slug)
+
 
     function HandleSubmitComment(event) {
         event.preventDefault()
         client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment }]).commit()
-        setUserReview(userReview.map(data => data.slug === slug ? {...data, name: reviewData.name, comment: reviewData.comment} : data))
+        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { name: reviewData.name, comment: reviewData.comment }] } : data))
+        console.log(userReview)
     }
 
     return (
@@ -150,15 +151,15 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                     <div>
                         <div>
-                            {comments?.map(data => (
+                            {userComments?.map(data => data.comments.map(data => (
                                 data.name && <div className='feedback' key={data._key}>
-                                <FaUser className='user-icon' size={30} />
-                                <div >
-                                    <h3>{data.name}</h3>
-                                    <p>{data.comment}</p>
+                                    <FaUser className='user-icon' size={30} />
+                                    <div >
+                                        <h3>{data.name}</h3>
+                                        <p>{data.comment}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            ))}
+                            )))}
                         </div>
                     </div>
                 </form>
