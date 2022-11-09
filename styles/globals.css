@@ -949,7 +949,16 @@ h4 {
   margin-left: 10px;
 }
 
+.feedback .user-box {
+  width: 100%;
+}
 
+.user-comment-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+}
 
 /* Success page */
 

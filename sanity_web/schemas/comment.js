@@ -13,5 +13,10 @@ export default {
             title: 'Comment',
             type: 'string'
         },
+        {
+            name: 'datetime',
+            title: 'Datetime',
+            type: 'string'
+        }
     ]
 }

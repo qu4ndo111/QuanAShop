@@ -10,16 +10,29 @@ import { Context } from '../../context/StateContext'
 import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
+
+    var currentdate = new Date();
+    var datetime = currentdate.getFullYear() + "/" + currentdate.getMonth()
+        + "/" + currentdate.getDay() + " "
+        + currentdate.getHours() + ":"
+        + currentdate.getMinutes()
+
     const { image, name, details, price, categories, _id, comment, slug } = product
 
     const [index, setIndex] = useState(0)
 
     const [userReview, setUserReview] = useState([{
         slug: slug,
-        comments: [
+        comments: comment ? comment?.map(data => {
+            return {
+                name: data.name,
+                comment: data.comment
+            }
+        }) : [
             {
                 name: '',
-                comment: ''
+                comment: '',
+                datetime: datetime
             }
         ]
     }])
@@ -41,9 +54,8 @@ const ProductDetails = ({ product, products }) => {
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment }]).commit()
-        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { name: reviewData.name, comment: reviewData.comment }] } : data))
-        console.log(userReview)
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit()
+        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { name: reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
     }
 
     return (
@@ -154,9 +166,12 @@ const ProductDetails = ({ product, products }) => {
                             {userComments?.map(data => data.comments.map(data => (
                                 data.name && <div className='feedback' key={data._key}>
                                     <FaUser className='user-icon' size={30} />
-                                    <div >
+                                    <div className='user-box'>
                                         <h3>{data.name}</h3>
-                                        <p>{data.comment}</p>
+                                        <div className='user-comment-box'>
+                                            <p>{data.comment}</p>
+                                            <p>{datetime}</p>
+                                        </div>
                                     </div>
                                 </div>
                             )))}
