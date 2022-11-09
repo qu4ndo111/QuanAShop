@@ -25,12 +25,14 @@ const ProductDetails = ({ product, products }) => {
         slug: slug,
         comments: comment ? comment.map(data => {
             return {
+                _key: data._key,
                 name: data.name,
                 comment: data.comment,
                 datetime: data.datetime
             }
         }) : [
             {
+                _key: nanoid(),
                 name: '',
                 comment: '',
                 datetime: datetime
@@ -56,7 +58,7 @@ const ProductDetails = ({ product, products }) => {
     function HandleSubmitComment(event) {
         event.preventDefault()
         client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit()
-        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { name: reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
+        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, {_key: nanoid(), name: reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
     }
 
     return (
