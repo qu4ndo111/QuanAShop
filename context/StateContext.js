@@ -45,8 +45,6 @@ export const StateContext = ({ children }) => {
         comment: ''
     })
 
-    const [userReview, setUserReview] = useState([])
-
     let foundProduct
     let index
 
@@ -256,9 +254,7 @@ export const StateContext = ({ children }) => {
                 HandleSubmitRegister,
                 responseGoogle,
                 reviewData,
-                userReview,
                 HandleChangeComment,
-                setUserReview
             }}
         >
             {children}

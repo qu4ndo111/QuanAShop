@@ -10,20 +10,17 @@ import { Context } from '../../context/StateContext'
 import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
-    const { image, name, details, price, categories, _id, comment } = product
+    const { image, name, details, price, categories, _id, comment, slug } = product
 
     const [index, setIndex] = useState(0)
 
+    const [userReview, setUserReview] = useState(comment)
+
     const useStateContext = useContext(Context)
 
-    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, userReview, setUserReview } = useStateContext
+    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, } = useStateContext
 
     const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
-    
-    useEffect(() => {
-      setUserReview(comment)
-    }, [comment])
-    
 
     const handleBuyNow = () => {
         onAdd(product, qty)
@@ -31,9 +28,11 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
+    
+
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment }]).commit().then(setUserReview(comment))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment }]).commit()
         
     }
 
