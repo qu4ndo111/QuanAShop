@@ -481,7 +481,6 @@ h4 {
   transform: scale(1, 1);
   color: #f02d34;
   cursor: pointer;
-  z-index: 10500;
 }
 
 .prev-btn:hover, .next-btn:hover {
