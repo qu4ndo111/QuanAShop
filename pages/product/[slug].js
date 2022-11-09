@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
+
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiFillCamera } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
+
 import { urlFor, client } from '../../lib/client'
 import Product from '../../components/Product'
 import { Context } from '../../context/StateContext'
 
+import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
     const { image, name, details, price, categories, _id, comment } = product
@@ -30,8 +33,8 @@ const ProductDetails = ({ product, products }) => {
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ name: reviewData.name, comment: reviewData.comment }]).commit({ autoGenerateArrayKeys: true })
-        setUserReview(comment)
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment }]).commit().then(setUserReview(comment))
+        
     }
 
     return (
