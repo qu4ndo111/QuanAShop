@@ -14,7 +14,15 @@ const ProductDetails = ({ product, products }) => {
 
     const [index, setIndex] = useState(0)
 
-    const [userReview, setUserReview] = useState(comment)
+    const [userReview, setUserReview] = useState([{
+        slug: slug,
+        comments: [
+            {
+                name: '',
+                comment: ''
+            }
+        ]
+    }])
 
     const useStateContext = useContext(Context)
 
@@ -28,12 +36,13 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
+    const comments = userReview?.filter(comment => comment.slug === slug)
     
 
     function HandleSubmitComment(event) {
         event.preventDefault()
         client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment }]).commit()
-        
+        setUserReview(userReview.map(data => data.slug === slug ? {...data, name: reviewData.name, comment: reviewData.comment} : data))
     }
 
     return (
@@ -141,14 +150,14 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                     <div>
                         <div>
-                            {userReview?.map(data => (
-                                <div className='feedback' key={data._key}>
-                                    <FaUser className='user-icon' size={30} />
-                                    <div >
-                                        <h3>{data.name}</h3>
-                                        <p>{data.comment}</p>
-                                    </div>
+                            {comments?.map(data => (
+                                data.name && <div className='feedback' key={data._key}>
+                                <FaUser className='user-icon' size={30} />
+                                <div >
+                                    <h3>{data.name}</h3>
+                                    <p>{data.comment}</p>
                                 </div>
+                            </div>
                             ))}
                         </div>
                     </div>
