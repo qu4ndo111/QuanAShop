@@ -26,7 +26,8 @@ const ProductDetails = ({ product, products }) => {
         comments: comment ? comment?.map(data => {
             return {
                 name: data.name,
-                comment: data.comment
+                comment: data.comment,
+                datetime: data.datetime
             }
         }) : [
             {
