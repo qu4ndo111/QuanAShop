@@ -45,8 +45,8 @@ h4 {
   border: none;
   background-color: transparent;
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  bottom: 30px;
+  right: 100px;
   cursor: pointer;
   transform: transform .4s ease;
 }
