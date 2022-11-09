@@ -23,7 +23,7 @@ const ProductDetails = ({ product, products }) => {
 
     const [userReview, setUserReview] = useState([{
         slug: slug,
-        comments: comment ? comment?.map(data => {
+        comments: comment ? comment.map(data => {
             return {
                 name: data.name,
                 comment: data.comment,
@@ -171,7 +171,7 @@ const ProductDetails = ({ product, products }) => {
                                         <h3>{data.name}</h3>
                                         <div className='user-comment-box'>
                                             <p>{data.comment}</p>
-                                            <p>{datetime}</p>
+                                            <p>{data.datetime}</p>
                                         </div>
                                     </div>
                                 </div>
