@@ -41,8 +41,8 @@ const Layout = ({ children }) => {
       <main className='main-container'>
         {children}
         <MessengerCustomerChat
-          pageId="100087651338697"
-          appId='933001170995233'
+          pageId="100184946255344"
+          appId='463297779202858'
         />
         <button className='back-to-top' onClick={scrollToTop}>
           {showButton && <BsFillArrowUpCircleFill size={50} />}
