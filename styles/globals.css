@@ -875,7 +875,7 @@ h4 {
 } */
 
 .user-review-container {
-  width: fit-content;
+  width: 700px;
   margin-top: 2em;
   margin-left: 8%;
   display: flex;
@@ -933,6 +933,7 @@ h4 {
 }
 
 .feedback {
+  position: relative;
   display: flex;
   background-color: #dcdcdc;
   border-radius: 35px;
@@ -951,13 +952,25 @@ h4 {
 
 .feedback .user-box {
   width: 100%;
+  margin-left: 5px;
 }
 
 .user-comment-box {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   padding-right: 20px;
+}
+
+.user-comment-box .user-comment {
+  max-width: 450px;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.user-comment-box .user-date {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
 }
 
 /* Success page */

@@ -172,8 +172,8 @@ const ProductDetails = ({ product, products }) => {
                                     <div className='user-box'>
                                         <h3>{data.name}</h3>
                                         <div className='user-comment-box'>
-                                            <p>{data.comment}</p>
-                                            <p>{data.datetime}</p>
+                                            <p className='user-comment'>{data.comment}</p>
+                                            <p className='user-date'>{data.datetime}</p>
                                         </div>
                                     </div>
                                 </div>
