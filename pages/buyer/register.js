@@ -14,14 +14,14 @@ const register = ({ bannerData }) => {
     if (passwordShown) {
       return (
         <div className='showPassContainer'>
-          <BiHide size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(false)} />
+          <BiShow size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(false)} />
           <p className='showPassword'>Show password</p>
         </div>
       )
     } else {
       return (
         <div className='showPassContainer'>
-          <BiShow size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(true)} />
+          <BiHide size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(true)} />
           <p className='showPassword'>Show password</p>
         </div>
       )
