@@ -14,14 +14,19 @@ export const StateContext = ({ children }) => {
 
     const [showCart, setShowCart] = useState(false)
     const [cartItems, setCartItems] = useState([])
+
     const [totalPrice, setTotalPrice] = useState(0)
+    
     const [totalQuantities, setTotalQuantities] = useState(0)
     const [qty, setQty] = useState(1)
+
+    const [windowWidth, setWindowWidth] = useState()
+
     const [searchText, setSearchText] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
-    const [windowWidth, setWindowWidth] = useState()
     const [searching, setSearching] = useState(false)
     const [searchItems, setSearchItems] = useState([])
+
     const [products, setProducts] = useState()
     const [productFound, setProductFound] = useState(false)
 
@@ -29,7 +34,6 @@ export const StateContext = ({ children }) => {
     const [wrongAccount, setWrongAccount] = useState(false)
     const [notMatchPassword, setNotMatchPassword] = useState(false)
 
-    const [dataAccount, setDataAccount] = useState()
     const [loginForm, setLoginForm] = useState({
         userName: '',
         password: '',
@@ -54,9 +58,6 @@ export const StateContext = ({ children }) => {
         const products = await client.fetch(query);
         setProducts(products)
 
-        const loginQuery = `*[_type == "user" && UserName == '${loginForm.userName}'][0]`
-        const login = await client.fetch(loginQuery)
-        setDataAccount(login)
     }
 
     useEffect(() => {
