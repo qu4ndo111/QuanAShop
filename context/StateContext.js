@@ -194,7 +194,6 @@ export const StateContext = ({ children }) => {
     function HandleSubmitRegister(event) {
         event.preventDefault()
         if (registerForm.password === registerForm.repeatPassword) {
-            
             router.push('/buyer/login')
         } else {
             setNotMatchPassword(true)
