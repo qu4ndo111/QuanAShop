@@ -21,10 +21,5 @@ export default {
                 hotspot: true,
             }
         },
-        {
-            name: 'googleAvatar',
-            title: 'googleAvatar',
-            type: 'string'
-        }
     ]
 }

@@ -10,7 +10,7 @@ import { GoogleLogin } from '@react-oauth/google'
 
 const login = ({ bannerData }) => {
 
-  const { passwordShown, setPasswordShown, wrongAccount, canLogin, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle } = useContext(Context)
+  const { passwordShown, setPasswordShown, wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle } = useContext(Context)
 
   function showHidePassword() {
     if (passwordShown) {

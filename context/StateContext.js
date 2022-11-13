@@ -177,6 +177,7 @@ export const StateContext = ({ children }) => {
 
     function HandleRegister(event) {
         const { name, value } = event.target
+        setNotMatchPassword(false)
         setRegisterForm(prevData => {
             return {
                 ...prevData,
@@ -192,7 +193,13 @@ export const StateContext = ({ children }) => {
 
     function HandleSubmitRegister(event) {
         event.preventDefault()
-        router.push('/buyer/login')
+        if (registerForm.password === registerForm.repeatPassword) {
+            
+            router.push('/buyer/login')
+        } else {
+            setNotMatchPassword(true)
+        }
+        
     }
 
     function HandleChangeComment(event) {
