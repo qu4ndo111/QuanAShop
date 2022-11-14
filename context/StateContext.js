@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import toast, { Toast } from "react-hot-toast";
-import Cart from "../components/Cart";
-import { client } from "../lib/client";
+import { client, urlFor } from "../lib/client";
 
 import jwtDecode from "jwt-decode";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+
 
 export const Context = createContext()
 
@@ -16,7 +16,7 @@ export const StateContext = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
 
     const [totalPrice, setTotalPrice] = useState(0)
-    
+
     const [totalQuantities, setTotalQuantities] = useState(0)
     const [qty, setQty] = useState(1)
 
@@ -33,6 +33,11 @@ export const StateContext = ({ children }) => {
     const [passwordShown, setPasswordShown] = useState(false)
     const [wrongAccount, setWrongAccount] = useState(false)
     const [notMatchPassword, setNotMatchPassword] = useState(false)
+    const [userExist, setUserExist] = useState(false)
+    const [registerSuccess, setRegisterSuccess] = useState(false)
+
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
 
     const [loginForm, setLoginForm] = useState({
         userName: '',
@@ -58,6 +63,9 @@ export const StateContext = ({ children }) => {
         const products = await client.fetch(query);
         setProducts(products)
 
+        const userQuery = '*[_type == "user"]';
+        const userDatas = await client.fetch(userQuery);
+        setUserData(userDatas);
     }
 
     useEffect(() => {
@@ -164,20 +172,43 @@ export const StateContext = ({ children }) => {
         setSearchText("")
     }
 
+    async function login() {
+        const query = `*[_type == "user" && userName match '${loginForm.userName}' && password match '${loginForm.password}']`;
+        const user = await client.fetch(query)
+        setUser(user)
+        if (user.length == 0) {
+            setWrongAccount(true)
+        } else {
+            router.push('/')
+        }
+    }
+
+    function createAccount() {
+        const account = {
+            _id: registerForm.userName,
+            _type: 'user',
+            userName: registerForm.userName,
+            password: registerForm.password,
+        }
+
+        client.createIfNotExists(account)
+    }
+
     function HandleLogin(event) {
         const { name, value } = event.target
+        setWrongAccount(false)
         setLoginForm(prevData => {
             return {
                 ...prevData,
                 [name]: value
             }
         })
-
     }
 
     function HandleRegister(event) {
         const { name, value } = event.target
         setNotMatchPassword(false)
+        setUserExist(false)
         setRegisterForm(prevData => {
             return {
                 ...prevData,
@@ -188,16 +219,29 @@ export const StateContext = ({ children }) => {
 
     function HandleSubmitLogin(event) {
         event.preventDefault()
-        router.push('/')
+        login()
+
     }
 
     function HandleSubmitRegister(event) {
         event.preventDefault()
-        if (registerForm.password === registerForm.repeatPassword) {
-            router.push('/buyer/login')
-        } else {
+        userData?.map(users => {
+            if (users.userName === registerForm.userName) {
+                setUserExist(true)
+            }
+        })
+        if (registerForm.password != registerForm.repeatPassword) {
             setNotMatchPassword(true)
+        } else if (registerForm.password === registerForm.repeatPassword) {
+            createAccount()
         }
+        
+        const accountName = userData.find((element) => element.userName == registerForm.userName)
+
+        if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName ) {
+            setRegisterSuccess(true)
+        }
+
         
     }
 
@@ -211,7 +255,7 @@ export const StateContext = ({ children }) => {
         })
     }
 
-    
+
 
     const responseGoogle = (response) => {
         var decoded = jwtDecode(response.credential)
@@ -251,6 +295,10 @@ export const StateContext = ({ children }) => {
                 setWrongAccount,
                 notMatchPassword,
                 setNotMatchPassword,
+                userExist,
+                setUserExist,
+                registerSuccess,
+                setRegisterSuccess,
                 HandleLogin,
                 loginForm,
                 setLoginForm,
@@ -262,6 +310,8 @@ export const StateContext = ({ children }) => {
                 responseGoogle,
                 reviewData,
                 HandleChangeComment,
+                user,
+                
             }}
         >
             {children}

@@ -8,7 +8,7 @@ import { GoogleLogin } from '@react-oauth/google'
 
 const register = ({ bannerData }) => {
 
-  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister } = useContext(Context)
+  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setRegisterForm, registerSuccess, setLoginForm } = useContext(Context)
 
   function showHidePassword() {
     if (passwordShown) {
@@ -38,6 +38,7 @@ const register = ({ bannerData }) => {
       </div>
       <form className='login-form' onSubmit={HandleSubmitRegister}>
         <p className='title'>Register <span>QuanA Shop</span> account</p>
+        {registerSuccess && <p className='login-incorrect register'>Register successfully!</p>}
         <label htmlFor='username'>User name:</label>
         <input
           id='username'
@@ -59,7 +60,6 @@ const register = ({ bannerData }) => {
             name='password'
             required
           />
-          
         </div>
         <label htmlFor='RepeatPassword'>Repeat password:</label>
         <div className='password-container'>
@@ -75,12 +75,16 @@ const register = ({ bannerData }) => {
         </div>
         {showHidePassword()}
         {notMatchPassword && <p className='login-incorrect'>Password do not match</p>}
+        {userExist && <p className='login-incorrect'>User already exist!</p>}
         <p className='register-text'>By creating an account you agree to our <span>Terms & Privacy.</span></p>
         <button
           type='submit'
           className='login-button'
         >REGISTER</button>
-        <p className='register-text'>Already have an account? <span><Link href={'/buyer/login'}>Sign in</Link></span></p>
+        <p className='register-text'>Already have an account? <span onClick={() => {
+          setRegisterForm({})
+          setLoginForm({})
+          }}><Link href={'/buyer/login'}>Sign in</Link></span></p>
         <div className='line' />
         <p className='other-method'>Or login with</p>
         <div className='googleLogin'>

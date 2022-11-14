@@ -17,7 +17,7 @@ const Navbar = () => {
 
   const useStateContext = React.useContext(Context)
 
-  const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching } = useStateContext
+  const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching, setLoginForm, setRegisterForm } = useStateContext
 
   function changeClassName() {
     if (openSearch && !searching) {
@@ -75,7 +75,11 @@ const Navbar = () => {
             }
           </div>
         </div>
-        <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => router.push('/buyer/login')} >  
+        <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
+          setLoginForm({})
+          setRegisterForm({})
+          router.push('/buyer/login')
+          }} >  
             <FaUser className='user-icon' />
         </div>
         <button type='button' className={openSearch ? 'cart-icon-close' : 'cart-icon'}

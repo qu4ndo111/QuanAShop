@@ -1088,7 +1088,13 @@ h4 {
   color: #f02d34;
   text-align: start;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.2rem;
+}
+
+.login-form .register {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.4rem;
 }
 
 .login-form .title {
