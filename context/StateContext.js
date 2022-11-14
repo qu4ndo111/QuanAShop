@@ -5,6 +5,7 @@ import { client, urlFor } from "../lib/client";
 import jwtDecode from "jwt-decode";
 import { useRouter } from 'next/router';
 
+import nextId from "react-id-generator";
 
 export const Context = createContext()
 
@@ -186,7 +187,7 @@ export const StateContext = ({ children }) => {
 
     function createAccount() {
         const account = {
-            _id: registerForm.userName,
+            _id: nextId(),
             _type: 'user',
             userName: registerForm.userName,
             password: registerForm.password,
