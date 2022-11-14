@@ -1082,6 +1082,23 @@ h4 {
   padding: 0 10px;
 }
 
+.login-form-logged-in {
+  background-color: transparent;
+  min-width: 400px;
+  margin-right: 15%;
+  align-self: center;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.login-form-logged-in .btn:hover {
+  transform: scale(1.1, 1.1);
+}
+
 .login-form .login-incorrect {
   padding: 0;
   padding-left: 10px;

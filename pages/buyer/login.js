@@ -5,12 +5,15 @@ import Link from 'next/link'
 import { Context } from '../../context/StateContext'
 
 import { GoogleLogin } from '@react-oauth/google'
+import { useRouter } from 'next/router'
 
 
 
 const login = ({ bannerData }) => {
 
-  const { passwordShown, setPasswordShown, wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle, setRegisterSuccess, setUserExist, } = useContext(Context)
+  const router = useRouter()
+
+  const { passwordShown, setPasswordShown, wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle, setRegisterSuccess, setUserExist, user, setUser } = useContext(Context)
 
   function showHidePassword() {
     if (passwordShown) {
@@ -37,7 +40,7 @@ const login = ({ bannerData }) => {
         <h1>QuanA Shop</h1>
         <img src={urlFor(bannerData.length && bannerData[0].image)} className='login-banner-image' />
       </div>
-      <form className='login-form' onSubmit={HandleSubmitLogin}>
+      {!user && <form className='login-form' onSubmit={HandleSubmitLogin}>
         <p className='title'>Log in to <span>QuanA Shop</span></p>
         {wrongAccount && <p className='login-incorrect'>Incorrect user name or password</p>}
         <label htmlFor='username'>User name:</label>
@@ -75,12 +78,18 @@ const login = ({ bannerData }) => {
         <div className='line' />
         <p className='other-method'>Or login with</p>
         <div className='googleLogin'>
-            <GoogleLogin
-              onSuccess={responseGoogle}
-              onError={responseGoogle}
-            />
+          <GoogleLogin
+            onSuccess={responseGoogle}
+            onError={responseGoogle}
+          />
         </div>
-      </form>
+      </form>}
+      {user && <div className='login-form-logged-in'>
+        <h3>You have already logged in!</h3>
+        <button type='button' className='btn' onClick={() => {
+          setUser(null)
+        }}>LOG OUT</button>
+      </div>}
     </div>
   )
 }

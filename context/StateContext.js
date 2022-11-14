@@ -312,7 +312,7 @@ export const StateContext = ({ children }) => {
                 reviewData,
                 HandleChangeComment,
                 user,
-                
+                setUser,
             }}
         >
             {children}
