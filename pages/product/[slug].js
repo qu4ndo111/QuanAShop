@@ -17,7 +17,7 @@ const ProductDetails = ({ product, products }) => {
         + currentdate.getHours() + ":"
         + currentdate.getMinutes()
 
-    const { image, name, details, price, categories, _id, comment, slug } = product
+    const { image, name, details, price, categories, _id, comment, slug, } = product
 
     const [index, setIndex] = useState(0)
 
@@ -42,7 +42,7 @@ const ProductDetails = ({ product, products }) => {
 
     const useStateContext = useContext(Context)
 
-    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, } = useStateContext
+    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, user} = useStateContext
 
     const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
 
@@ -57,8 +57,8 @@ const ProductDetails = ({ product, products }) => {
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit()
-        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, {_key: nanoid(), name: reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit()
+        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, {_key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
     }
 
     return (
@@ -140,9 +140,9 @@ const ProductDetails = ({ product, products }) => {
                     <h2>Review product</h2>
                     <input
                         type='text'
-                        placeholder='Please enter your name'
+                        placeholder={user ? user.userName : 'Please enter your name'}
                         onChange={HandleChangeComment}
-                        value={reviewData.name}
+                        value={user ? user.userName : reviewData.name}
                         name='name'
                         required
 

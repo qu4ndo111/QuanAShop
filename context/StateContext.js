@@ -175,7 +175,8 @@ export const StateContext = ({ children }) => {
     async function login() {
         const query = `*[_type == "user" && userName match '${loginForm.userName}' && password match '${loginForm.password}']`;
         const user = await client.fetch(query)
-        setUser(user)
+        setUser(user[0])
+        console.log(user)
         if (user.length == 0) {
             setWrongAccount(true)
         } else {
