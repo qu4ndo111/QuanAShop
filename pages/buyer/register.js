@@ -31,7 +31,7 @@ const register = ({ bannerData }) => {
   }
 
   return (
-    <div className='profile-login'>
+    <div className='profile-login register'>
       <div className='login-banner'>
         <h1>QuanA Shop</h1>
         <img src={urlFor(bannerData.length && bannerData[0].image)} className='login-banner-image' />
