@@ -38,7 +38,7 @@ const register = ({ bannerData }) => {
       </div>
       <form className='login-form' onSubmit={HandleSubmitRegister}>
         <p className='title'>Register <span>QuanA Shop</span> account</p>
-        {registerSuccess && <p className='login-incorrect register'>Register successfully!</p>}
+        {registerSuccess && <p className='login-incorrect register'>Register successful!</p>}
         <label htmlFor='username'>User name:</label>
         <input
           id='username'
