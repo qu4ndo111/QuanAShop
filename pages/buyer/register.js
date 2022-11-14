@@ -8,7 +8,7 @@ import { GoogleLogin } from '@react-oauth/google'
 
 const register = ({ bannerData }) => {
 
-  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setRegisterForm, registerSuccess, setLoginForm } = useContext(Context)
+  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setRegisterForm, registerSuccess, setLoginForm, setWrongAccount } = useContext(Context)
 
   function showHidePassword() {
     if (passwordShown) {
@@ -84,6 +84,7 @@ const register = ({ bannerData }) => {
         <p className='register-text'>Already have an account? <span onClick={() => {
           setRegisterForm({})
           setLoginForm({})
+          setWrongAccount(false)
           }}><Link href={'/buyer/login'}>Sign in</Link></span></p>
         <div className='line' />
         <p className='other-method'>Or login with</p>
