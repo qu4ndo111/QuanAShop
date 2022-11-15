@@ -31,7 +31,7 @@ const register = ({ bannerData }) => {
   }
 
   return (
-    <div className='profile-login register'>
+    <div className='profile-login register-form'>
       <div className='login-banner'>
         <h1>QuanA Shop</h1>
         <img src={urlFor(bannerData.length && bannerData[0].image)} className='login-banner-image' />
@@ -45,7 +45,7 @@ const register = ({ bannerData }) => {
           type='text'
           placeholder='Email or Username'
           onChange={HandleRegister}
-          value={registerForm.userName}
+          value={registerForm.userName || ''}
           name='userName'
           required
         />
@@ -56,7 +56,7 @@ const register = ({ bannerData }) => {
             type={passwordShown ? 'text' : 'password'}
             placeholder='Password'
             onChange={HandleRegister}
-            value={registerForm.password}
+            value={registerForm.password || ''}
             name='password'
             required
           />
@@ -68,7 +68,7 @@ const register = ({ bannerData }) => {
             type={passwordShown ? 'text' : 'password'}
             placeholder='Repeat Password'
             onChange={HandleRegister}
-            value={registerForm.repeatPassword}
+            value={registerForm.repeatPassword || ''}
             name='repeatPassword'
             required
           />

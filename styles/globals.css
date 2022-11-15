@@ -230,7 +230,7 @@ h4 {
   background: rgba(0, 0, 0, 0.5);
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 5000;
   transition: all 1s ease-in-out;
 }
 
@@ -241,7 +241,7 @@ h4 {
   background-color: white;
   padding: 40px 10px;
   position: relative;
-
+  
 }
 
 .cart-heading {
@@ -481,6 +481,7 @@ h4 {
   transform: scale(1, 1);
   color: #f02d34;
   cursor: pointer;
+  z-index: 2000;
 }
 
 .prev-btn:hover, .next-btn:hover {
@@ -1456,11 +1457,11 @@ h4 {
     min-width: 0;
     flex-direction: column;
     position: relative;
-    height: 700px;
+    height: 650px;
   }
 
-  .register {
-    height: 900px;
+  .register-form {
+    height: 800px;
   }
 
   .login-banner {
@@ -1475,6 +1476,18 @@ h4 {
     top: 2em;
     margin: auto;
   
+  }
+
+  .login-form-logged-in {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    
+  }
+
+  .login-form-logged-in .btn {
+    width: 70%;
+    align-self: center;
   }
 
   .more-products {

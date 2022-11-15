@@ -177,7 +177,6 @@ export const StateContext = ({ children }) => {
         const query = `*[_type == "user" && userName match '${loginForm.userName}' && password match '${loginForm.password}']`;
         const user = await client.fetch(query)
         setUser(user[0])
-        console.log(user)
         if (user.length == 0) {
             setWrongAccount(true)
         } else {
@@ -193,7 +192,14 @@ export const StateContext = ({ children }) => {
             password: registerForm.password,
         }
 
-        client.createIfNotExists(account)
+        client.createIfNotExists(account).then(() => {
+
+            const accountName = userData.find((element) => element.userName == registerForm.userName)
+
+            if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName) {
+                setRegisterSuccess(true)
+            }
+        })
     }
 
     function HandleLogin(event) {
@@ -211,6 +217,7 @@ export const StateContext = ({ children }) => {
         const { name, value } = event.target
         setNotMatchPassword(false)
         setUserExist(false)
+        setRegisterSuccess(false)
         setRegisterForm(prevData => {
             return {
                 ...prevData,
@@ -237,14 +244,10 @@ export const StateContext = ({ children }) => {
         } else if (registerForm.password === registerForm.repeatPassword) {
             createAccount()
         }
-        
-        const accountName = userData.find((element) => element.userName == registerForm.userName)
 
-        if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName ) {
-            setRegisterSuccess(true)
-        }
 
-        
+
+
     }
 
     function HandleChangeComment(event) {

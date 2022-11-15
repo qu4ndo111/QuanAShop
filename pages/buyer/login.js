@@ -49,7 +49,7 @@ const login = ({ bannerData }) => {
           type='text'
           placeholder='Email or Username'
           onChange={HandleLogin}
-          value={loginForm.userName}
+          value={loginForm.userName || ''}
           name='userName'
           required
         />
@@ -60,7 +60,7 @@ const login = ({ bannerData }) => {
             type={passwordShown ? 'text' : 'password'}
             placeholder='Password'
             onChange={HandleLogin}
-            value={loginForm.password}
+            value={loginForm.password || ''}
             name='password'
             required
           />
@@ -88,6 +88,7 @@ const login = ({ bannerData }) => {
         <h3>You have already logged in!</h3>
         <button type='button' className='btn' onClick={() => {
           setUser(null)
+          setUserExist(false)
         }}>LOG OUT</button>
       </div>}
     </div>
