@@ -11,6 +11,12 @@ export const Context = createContext()
 
 export const StateContext = ({ children }) => {
 
+    var currentdate = new Date();
+    var datetime = currentdate.getFullYear() + "/" + currentdate.getMonth()
+        + "/" + currentdate.getDay() + " "
+        + currentdate.getHours() + ":"
+        + currentdate.getMinutes()
+
     const router = useRouter()
 
     const [showCart, setShowCart] = useState(false)
@@ -190,6 +196,7 @@ export const StateContext = ({ children }) => {
             _type: 'user',
             userName: registerForm.userName,
             password: registerForm.password,
+            createdDate: datetime,
         }
 
         client.createIfNotExists(account).then(() => {

@@ -21,5 +21,10 @@ export default {
                 hotspot: true,
             }
         },
+        {
+            name: 'createdDate',
+            title: 'CreatedDate',
+            type: 'string',
+        },
     ]
 }
