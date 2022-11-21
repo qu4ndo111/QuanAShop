@@ -180,7 +180,7 @@ export const StateContext = ({ children }) => {
     }
 
     async function login() {
-        const query = `*[_type == "user" && userName match '${loginForm.userName}' && password match '${loginForm.password}']`;
+        const query = `*[_type == "user" && userName == '${loginForm.userName}' && password == '${loginForm.password}']`;
         const user = await client.fetch(query)
         setUser(user[0])
         if (user.length == 0) {
