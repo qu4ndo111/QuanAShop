@@ -42,7 +42,7 @@ const ProductDetails = ({ product, products }) => {
 
     const useStateContext = useContext(Context)
 
-    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, user} = useStateContext
+    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, user, setReviewData } = useStateContext
 
     const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
 
@@ -57,8 +57,15 @@ const ProductDetails = ({ product, products }) => {
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit()
-        setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, {_key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit().then(() => {
+            setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
+        }).then(() => setReviewData(prev => {
+            return {
+                ...prev,
+                comment: ''
+            }
+        }))
+
     }
 
     return (

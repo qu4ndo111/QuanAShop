@@ -324,6 +324,7 @@ export const StateContext = ({ children }) => {
                 HandleChangeComment,
                 user,
                 setUser,
+                setReviewData,
             }}
         >
             {children}
