@@ -148,6 +148,8 @@ h4 {
   border-bottom: 1px solid #324d67;
   cursor: pointer;
   padding: 10px 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .search-item-container:hover {
