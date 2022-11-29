@@ -192,7 +192,7 @@ export const StateContext = ({ children }) => {
 
     function createAccount() {
         const account = {
-            _id: nextId(),
+            _id: registerForm.userName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-'),
             _type: 'user',
             userName: registerForm.userName,
             password: registerForm.password,
