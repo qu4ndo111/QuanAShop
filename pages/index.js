@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { Product, FooterBanner, HeroBanner, ProductCategory } from '../components'
 import { client } from '../lib/client'
+import { Context } from '../context/StateContext'
 
 import { BiLeftArrow, BiRightArrow } from 'react-icons/bi'
 
@@ -11,6 +12,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = ({ products, bannerData, categoryData }) => {
+
+  const useStateContext = React.useContext(Context)
+  const { setUser } = useStateContext
+
+  if (typeof window !== 'undefined') {
+    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
+    useEffect(() => {
+      setUser(userInfo)
+    }, [])
+  }
 
   function PrevArrow(props) {
     const { onClick } = props;

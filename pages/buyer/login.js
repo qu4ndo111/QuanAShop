@@ -89,6 +89,7 @@ const login = ({ bannerData }) => {
         <button type='button' className='btn' onClick={() => {
           setUser(null)
           setUserExist(false)
+          localStorage.clear()
         }}>LOG OUT</button>
       </div>}
     </div>

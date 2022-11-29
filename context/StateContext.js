@@ -182,7 +182,7 @@ export const StateContext = ({ children }) => {
     async function login() {
         const query = `*[_type == "user" && userName == '${loginForm.userName}' && password == '${loginForm.password}']`;
         const user = await client.fetch(query)
-        setUser(user[0])
+        localStorage.setItem('user', JSON.stringify(user))
         if (user.length == 0) {
             setWrongAccount(true)
         } else {
@@ -325,6 +325,7 @@ export const StateContext = ({ children }) => {
                 user,
                 setUser,
                 setReviewData,
+                setUser,
             }}
         >
             {children}
