@@ -1,17 +1,21 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { client, urlFor } from '../../lib/client'
 import { BiShow, BiHide } from 'react-icons/bi'
 import Link from 'next/link'
 import { Context } from '../../context/StateContext'
 
 import { GoogleLogin } from '@react-oauth/google'
-import { useRouter } from 'next/router'
 
 
 
 const login = ({ bannerData }) => {
 
-  const router = useRouter()
+  if (typeof window !== 'undefined') {
+    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
+    useEffect(() => {
+      setUser(userInfo)
+    }, [])
+  }
 
   const { passwordShown, setPasswordShown, wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle, setRegisterSuccess, setUserExist, user, setUser } = useContext(Context)
 
