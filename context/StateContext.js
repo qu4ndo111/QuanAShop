@@ -5,8 +5,6 @@ import { client, urlFor } from "../lib/client";
 import jwtDecode from "jwt-decode";
 import { useRouter } from 'next/router';
 
-import nextId from "react-id-generator";
-
 export const Context = createContext()
 
 export const StateContext = ({ children }) => {
@@ -186,7 +184,7 @@ export const StateContext = ({ children }) => {
         if (user.length == 0) {
             setWrongAccount(true)
         } else {
-            router.push('/')
+            router.back()
         }
     }
 

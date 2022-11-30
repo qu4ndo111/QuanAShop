@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiFillCamera } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
@@ -10,6 +10,13 @@ import { Context } from '../../context/StateContext'
 import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
+
+    if (typeof window !== 'undefined') {
+        const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
+        useEffect(() => {
+            setUser(userInfo)
+        }, [])
+    }
 
     var currentdate = new Date();
     var datetime = currentdate.getFullYear() + "/" + currentdate.getMonth()
@@ -42,7 +49,7 @@ const ProductDetails = ({ product, products }) => {
 
     const useStateContext = useContext(Context)
 
-    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, user, setReviewData } = useStateContext
+    const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, user, setReviewData, setUser } = useStateContext
 
     const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
 
@@ -149,7 +156,7 @@ const ProductDetails = ({ product, products }) => {
                         type='text'
                         placeholder={user ? user.userName : 'Please enter your name'}
                         onChange={HandleChangeComment}
-                        value={user ? user.userName : reviewData.name}
+                        value={user ? user[0].userName : reviewData.name}
                         name='name'
                         required
 
