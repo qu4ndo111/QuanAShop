@@ -950,6 +950,13 @@ h4 {
   gap: 20px;
 }
 
+.user-comment-image {
+  width: 55px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: -10px;
+}
+
 .feedback .user-icon {
   border: 1px solid black;
   color: #324d67;

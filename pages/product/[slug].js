@@ -43,17 +43,37 @@ const ProductDetails = ({ product, products }) => {
                 _key: data._key,
                 name: data.name,
                 comment: data.comment,
-                datetime: data.datetime
+                datetime: data.datetime,
+                avatar: data.avatar,
             }
         }) : [
             {
                 _key: nanoid(),
                 name: '',
                 comment: '',
+                avatar: null,
                 datetime: datetime
             }
         ]
     }])
+
+    function userAvatar() {
+        if (user && user[0].avatar) {
+            return user[0].avatar
+        } else if (user && !user[0].avatar && user[0].avatarURL) {
+            return user[0].avatarURL
+        } else if (!user) {
+            return null
+        }
+    }
+
+    function commentAvatar(data) {
+        if (!data) {
+            return <FaUser className='user-icon' size={30} />
+        } else {
+            return <img src={urlFor(data)} className='user-comment-image'/>
+        }
+    }
 
     const useStateContext = useContext(Context)
 
@@ -72,8 +92,8 @@ const ProductDetails = ({ product, products }) => {
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit().then(() => {
-            setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(() => {
+            setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
         }).then(() => setReviewData(prev => {
             return {
                 ...prev,
@@ -191,7 +211,7 @@ const ProductDetails = ({ product, products }) => {
                         <div>
                             {userComments?.map(data => data.comments.map(data => (
                                 data.name && <div className='feedback' key={data._key}>
-                                    <FaUser className='user-icon' size={30} />
+                                    {commentAvatar(data.avatar)}
                                     <div className='user-box'>
                                         <h3>{data.name}</h3>
                                         <div className='user-comment-box'>
