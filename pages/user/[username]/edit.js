@@ -80,11 +80,21 @@ const edit = () => {
         })
     }
 
+    function userAvatar() {
+        if(user && user[0].avatar && !file?.url) {
+          return urlFor(user[0].avatar)
+        } else if(user && !user[0].avatar && user[0].avatarURL && !file?.url) {
+          return user[0].avatarURL
+        } else if (file?.url) {
+            return file?.url
+        }
+      }
+
     return (
         <form className='user-profile-container' onSubmit={HandleSubmitInfo}>
             <div className='user-image'>
                 <div className='user-image-container'>
-                <img src={file?.url ? file?.url : user ? urlFor(user[0].avatar) : file?.url } className='user-avatar'/>
+                <img src={userAvatar()} className='user-avatar'/>
                     <label htmlFor='image-upload' className='change-image'>
                         <input
                             type='file'

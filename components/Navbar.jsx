@@ -12,6 +12,8 @@ import { Cart, SearchItem } from '.'
 
 import { Context } from '../context/StateContext'
 
+import { urlFor } from '../lib/client'
+
 const Navbar = () => {
 
   const router = useRouter()
@@ -86,10 +88,10 @@ const Navbar = () => {
         </div>}
         {
           user && <div className='profile-container'>
-            <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
+            <div className={openSearch ? 'profile-close' : 'profile-image'} onClick={() => {
               setOpenProfileMenus(prev => !prev)
             }} >
-              <FaUser className='user-icon' />
+              <img src={user ? urlFor(user[0].avatar) : ''} />
             </div>
             {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
               <button type='button' className='profile-menus-btn' onClick={() => {

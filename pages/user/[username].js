@@ -29,11 +29,19 @@ const userProfile = () => {
     }, [])
   }
 
+  function userAvatar() {
+    if(user && user[0].avatar) {
+      return urlFor(user[0].avatar)
+    } else if(user && !user[0].avatar && user[0].avatarURL) {
+      return user[0].avatarURL
+    }
+  }
+
   return (
     <div className='user-profile-container'>
       <div className='user-image'>
         <div className='user-image-container'>
-          <img src={user ? urlFor(user[0].avatar) : ''} className='user-avatar' />
+          <img src={userAvatar()} className='user-avatar' />
         </div>
         <h3>{user ? user[0].fullName : ''}</h3>
       </div>
