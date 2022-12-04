@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { AiOutlineShoppingCart, AiOutlineSearch, } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
+import { ImExit } from 'react-icons/im'
 
 import { Cart, SearchItem } from '.'
 
@@ -17,7 +18,9 @@ const Navbar = () => {
 
   const useStateContext = React.useContext(Context)
 
-  const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching, setLoginForm, setRegisterForm } = useStateContext
+  const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching, setLoginForm, setRegisterForm, user, setUser, setUserExist } = useStateContext
+
+  const [openProfileMenus, setOpenProfileMenus] = useState(false)
 
   function changeClassName() {
     if (openSearch && !searching) {
@@ -56,7 +59,6 @@ const Navbar = () => {
               onChange={HandleChange}
               value={searchText}
               onFocus={() => setSearching(true)}
-            // onBlur={() => setSearching(false)}
             />
             {searching && <div className={openSearch ? 'items-open' : 'items'}>
               {
@@ -75,13 +77,35 @@ const Navbar = () => {
             }
           </div>
         </div>
-        <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
+        {!user && <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
           setLoginForm({})
           setRegisterForm({})
           router.push('/buyer/login')
-          }} >  
-            <FaUser className='user-icon' />
-        </div>
+        }} >
+          <FaUser className='user-icon' />
+        </div>}
+        {
+          user && <div className='profile-container'>
+            <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
+              setOpenProfileMenus(prev => !prev)
+            }} >
+              <FaUser className='user-icon' />
+            </div>
+            {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
+              <button type='button' className='profile-menus-btn' onClick={() => {
+                router.push(`/user/${user[0].userName}`)
+                setOpenProfileMenus(false)
+              }}><FaUser/> View profile</button>
+              <button type='button' className={openSearch ? 'cart-icon-close' : 'profile-menus-btn'} onClick={() => {
+                setUser(null)
+                setUserExist(false)
+                localStorage.clear()
+                setOpenProfileMenus(false)
+                router.push('/')
+              }}><ImExit /> Log out</button>
+            </div>}
+          </div>
+        }
         <button type='button' className={openSearch ? 'cart-icon-close' : 'cart-icon'}
           onClick={() => setShowCart(true)}>
           <AiOutlineShoppingCart />

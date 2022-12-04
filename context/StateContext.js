@@ -178,13 +178,13 @@ export const StateContext = ({ children }) => {
     }
 
     async function login() {
-        const query = `*[_type == "user" && userName == '${loginForm.userName}' && password == '${loginForm.password}']`;
+        const query = `*[_type == "user" && userName == '${loginForm.userName}' && password == '${loginForm.password}']`
         const user = await client.fetch(query)
-        localStorage.setItem('user', JSON.stringify(user))
         if (user.length == 0) {
             setWrongAccount(true)
         } else {
-            router.back()
+            localStorage.setItem('userInfo', JSON.stringify(loginForm))
+            router.push('/')
         }
     }
 
@@ -195,6 +195,7 @@ export const StateContext = ({ children }) => {
             userName: registerForm.userName,
             password: registerForm.password,
             createdDate: datetime,
+            avatarURL: 'https://cdn.landesa.org/wp-content/uploads/default-user-image.png'
         }
 
         client.createIfNotExists(account).then(() => {

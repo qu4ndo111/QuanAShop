@@ -14,12 +14,32 @@ export default {
             type: 'string',
         },
         {
+            name: 'fullName',
+            title: 'FullName',
+            type: 'string',
+        },
+        {
             name: 'avatar',
             title: 'Avatar',
             type: 'image',
             options: {
                 hotspot: true,
             }
+        },
+        {
+            name: 'avatarURL',
+            title: 'AvatarURL',
+            type: 'string',
+        },
+        {
+            name: 'address',
+            title: 'Address',
+            type: 'string',
+        },
+        {
+            name: 'phoneNumber',
+            title: 'PhoneNumber',
+            type: 'string',
         },
         {
             name: 'createdDate',

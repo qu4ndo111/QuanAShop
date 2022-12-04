@@ -11,10 +11,18 @@ import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
 
+    async function getUser() {
+        const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
+        if (userInfo) {
+            const query = `*[_type == "user" && userName == '${userInfo ? userInfo.userName : ''}' && password == '${userInfo ? userInfo.password : ''}']`
+            const userData = await client.fetch(query)
+            setUser(userData)
+        }
+    }
+
     if (typeof window !== 'undefined') {
-        const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
         useEffect(() => {
-            setUser(userInfo)
+            getUser()
         }, [])
     }
 
@@ -64,8 +72,8 @@ const ProductDetails = ({ product, products }) => {
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit().then(() => {
-            setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user.userName : reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime }]).commit().then(() => {
+            setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime }] } : data))
         }).then(() => setReviewData(prev => {
             return {
                 ...prev,
@@ -173,6 +181,7 @@ const ProductDetails = ({ product, products }) => {
                             <input
                                 type='file'
                                 id='image-upload'
+                                multiple accept="image/*"
                             />
                             <AiFillCamera size={30} />
                         </label>

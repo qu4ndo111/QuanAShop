@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { Product, FooterBanner, HeroBanner, ProductCategory } from '../components'
 import { client } from '../lib/client'
@@ -16,10 +16,18 @@ const Home = ({ products, bannerData, categoryData }) => {
   const useStateContext = React.useContext(Context)
   const { setUser } = useStateContext
 
+  async function getUser() {
+    const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
+    if (userInfo) {
+      const query = `*[_type == "user" && userName == '${userInfo ? userInfo.userName : ''}' && password == '${userInfo ? userInfo.password : ''}']`
+      const userData = await client.fetch(query)
+      setUser(userData)
+    }
+  }
+
   if (typeof window !== 'undefined') {
-    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
     useEffect(() => {
-      setUser(userInfo)
+      getUser()
     }, [])
   }
 
