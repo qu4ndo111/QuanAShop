@@ -11,6 +11,8 @@ import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
 
+    const { image, name, details, price, categories, _id, comment, slug, } = product
+
     async function getUser() {
         const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
         if (userInfo) {
@@ -31,8 +33,6 @@ const ProductDetails = ({ product, products }) => {
         + "/" + currentdate.getDay() + " "
         + currentdate.getHours() + ":"
         + currentdate.getMinutes()
-
-    const { image, name, details, price, categories, _id, comment, slug, } = product
 
     const [index, setIndex] = useState(0)
 
