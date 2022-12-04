@@ -88,10 +88,10 @@ const Navbar = () => {
         </div>}
         {
           user && <div className='profile-container'>
-            <div className={openSearch ? 'profile-close' : 'profile-image'} onClick={() => {
+            <div className={openSearch ? 'profile-close' : 'profile profile-image'} onClick={() => {
               setOpenProfileMenus(prev => !prev)
             }} >
-              <img src={user ? urlFor(user[0].avatar) : ''} />
+              <img src={user ? urlFor(user[0].avatar) : ''} className={openSearch ? 'avatar' : ''}/>
             </div>
             {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
               <button type='button' className='profile-menus-btn' onClick={() => {

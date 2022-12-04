@@ -1046,17 +1046,10 @@ h4 {
 }
 
 .profile-image {
-  position: absolute;
-  right: 100px;
   top: -10px;
-  border-radius: 50%;
-  cursor: pointer;
-  transform: scale(1, 1);
+  padding: 0;
+  border: none;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.profile-image:hover {
-  transform: scale(1.1, 1.1);
 }
 
 .profile-image img {
@@ -1776,6 +1769,8 @@ h4 {
     display: block;
 
   }
+  
+  
 }
 
 
@@ -1799,8 +1794,6 @@ h4 {
     width: 90%;
     top: -5px;
   }
-
-
 
   .search-items .search-text-open {
     display: flex;
@@ -1833,6 +1826,8 @@ h4 {
     position: absolute;
     background-color: #ebebeb;
     z-index: 9;
+    max-height: 500px;
+    overflow: auto;
   }
 
   .search-items .icon-open {
@@ -1854,6 +1849,10 @@ h4 {
 
   .navbar-container .cart-item-qty-close {
     visibility: hidden;
+  }
+
+  .avatar {
+    display: none;
   }
 }
 
