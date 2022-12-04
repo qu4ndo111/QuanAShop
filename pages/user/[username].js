@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 
-import { client } from '../../lib/client'
-import { urlFor } from '../../lib/client'
+import { client, urlFor } from '../../lib/client'
 
 import { Context } from '../../context/StateContext'
 
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { FooterBanner } from '../../components'
 
 const userProfile = () => {
 
@@ -36,7 +33,7 @@ const userProfile = () => {
     <div className='user-profile-container'>
       <div className='user-image'>
         <div className='user-image-container'>
-          <img src={user ? user[0].avatarURL : ''} className='user-avatar' />
+          <img src={user ? urlFor(user[0].avatar) : ''} className='user-avatar' />
         </div>
         <h3>{user ? user[0].fullName : ''}</h3>
       </div>

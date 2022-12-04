@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import { Context } from '../../../context/StateContext'
 
-import { client } from '../../../lib/client'
+import { client, urlFor } from '../../../lib/client'
 
 const edit = () => {
 
@@ -42,16 +42,31 @@ const edit = () => {
     const [checkInfo, setCheckInfo] = useState(false)
 
     function handleChangeImage(e) {
-        setFile(URL.createObjectURL(e.target.files[0]))
+        const { type, name } = e.target.files[0]
+        client.assets.upload('image', e.target.files[0], {
+            contentType: type,
+            filename: name,
+        }).then(document => setFile(document))
     }
 
-    function HandleSubmitImage(e) {
+    function HandleSubmitInfo(e) {
         e.preventDefault()
         if(userInfoForm.address != '' && userInfoForm.fullName != '' && userInfoForm.phoneNumber != '') {
-            client.patch(user ? user[0]._id : null).set({avatarURL: file, fullName: userInfoForm.fullName, address: userInfoForm.address, phoneNumber: userInfoForm.phoneNumber}).commit().then(() => router.back())
+            client.patch(user ? user[0]._id : null).set({
+                avatar: {
+                    _type: 'image',
+                    asset: {
+                        _type: 'reference',
+                        _ref: file._id
+                    }
+                }
+            }).commit()
+            client.patch(user ? user[0]._id : null).set({fullName: userInfoForm.fullName, address: userInfoForm.address, phoneNumber: userInfoForm.phoneNumber}).commit().then(() => router.back())
         } else {
             setCheckInfo(true)
         }
+        
+        
     }
 
     function handleChangeInfo(e) {
@@ -66,10 +81,10 @@ const edit = () => {
     }
 
     return (
-        <form className='user-profile-container' onSubmit={HandleSubmitImage}>
+        <form className='user-profile-container' onSubmit={HandleSubmitInfo}>
             <div className='user-image'>
                 <div className='user-image-container'>
-                <img src={file ? file : user ? user[0].avatarURL : file } className='user-avatar'/>
+                <img src={file?.url ? file?.url : user ? urlFor(user[0].avatar) : file?.url } className='user-avatar'/>
                     <label htmlFor='image-upload' className='change-image'>
                         <input
                             type='file'
