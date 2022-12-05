@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import { Context } from '../../../context/StateContext'
 
-import { client, urlFor } from '../../../lib/client'
+import { client } from '../../../lib/client'
 
 const edit = () => {
 
