@@ -5,6 +5,7 @@ import { client, urlFor } from '../../lib/client'
 import { Context } from '../../context/StateContext'
 
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const userProfile = () => {
 
@@ -44,6 +45,9 @@ const userProfile = () => {
           <img src={userAvatar()} className='user-avatar' />
         </div>
         <h3>{user ? user[0].fullName : ''}</h3>
+        <Link href={user ? `${user[0]?.userName}/security` : '/'}>
+          <p className='change-password'>Change password</p>
+        </Link>
       </div>
       <div className='user-info'>
         <p className='user-detail'>Full name: <span>{user ? user[0].fullName : ''}</span></p>
