@@ -1312,6 +1312,8 @@ h4 {
  
 }
 
+
+
 .user-image-container .user-avatar {
   border-radius: 50%;
   width: 100%;
@@ -1346,6 +1348,7 @@ h4 {
 .user-image h3 {
   text-align: center;
   font-size: 2.0rem;
+  margin: 10px 30px;
 }
 
 .user-info {
@@ -1370,8 +1373,7 @@ h4 {
 .user-info .user-detail {
   font-size: 1.5rem;
   font-weight: 500;
-  margin: 20px 50px;
-
+  margin: 10px;
 }
 
 .user-detail span {
