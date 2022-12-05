@@ -475,7 +475,6 @@ h4 {
   padding-bottom: 2em;
   max-height: 280px;
   text-align: center;
-
 }
 
 .prev-btn,
@@ -486,6 +485,7 @@ h4 {
   color: #f02d34;
   cursor: pointer;
   z-index: 2000;
+  
 }
 
 .prev-btn:hover,
@@ -496,7 +496,7 @@ h4 {
 .prev-btn {
   position: absolute;
   top: 45%;
-  left: 0;
+  left: -50px;
 
 }
 
@@ -504,7 +504,7 @@ h4 {
   position: absolute;
   top: 45%;
   right: 0;
-
+  
 }
 
 .product-card {

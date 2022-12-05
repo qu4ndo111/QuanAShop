@@ -31,22 +31,20 @@ const Home = ({ products, bannerData, categoryData }) => {
     }, [])
   }
 
-  function PrevArrow(props) {
-    const { onClick } = props;
+  function PrevArrow({ onClick }) {
     return (
-      <button type='button' onClick={onClick} className='prev-btn'>
+      <div onClick={onClick} className='prev-btn'>
         <BiLeftArrow size={30} />
-      </button>
-    );
+      </div>
+    )
   }
 
-  function NextArrow(props) {
-    const { onClick } = props;
+  function NextArrow({ onClick }) {
     return (
-      <button type='button' onClick={onClick} className='next-btn'>
+      <div onClick={onClick} className='next-btn'>
         <BiRightArrow size={30} />
-      </button>
-    );
+      </div>
+    )
   }
 
   const setting = {
@@ -93,7 +91,6 @@ const Home = ({ products, bannerData, categoryData }) => {
         <h2>Best selling Products</h2>
         <p>Speakers of many variations</p>
       </div>
-
       <Slider className='best-selling-product-container best-products' {...setting}>
         {products?.map((product => <Product key={product._id}
           product={product}
@@ -102,6 +99,8 @@ const Home = ({ products, bannerData, categoryData }) => {
       <ProductCategory products={products} categoryName={'Headphone'} categoryData={categoryData} />
       <ProductCategory products={products} categoryName={'In ear'} categoryData={categoryData} />
       <ProductCategory products={products} categoryName={'Speaker'} categoryData={categoryData} />
+
+
 
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </div>
