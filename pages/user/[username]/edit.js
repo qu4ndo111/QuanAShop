@@ -86,7 +86,7 @@ const edit = () => {
         } else if(user && !user[0].avatar && user[0].avatarURL && !file?.url) {
           return user[0].avatarURL
         } else if (file?.url) {
-            return urlFor(file?.url)
+            return file?.url
         }
       }
 

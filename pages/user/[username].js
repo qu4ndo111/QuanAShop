@@ -33,7 +33,7 @@ const userProfile = () => {
     if(user && user[0].avatar) {
       return urlFor(user[0].avatar)
     } else if(user && !user[0].avatar && user[0].avatarURL) {
-      return urlFor(user[0].avatarURL)
+      return user[0].avatarURL
     }
   }
 
