@@ -25,11 +25,9 @@ const Home = ({ products, bannerData, categoryData }) => {
     }
   }
 
-  if (typeof window !== 'undefined') {
-    useEffect(() => {
-      getUser()
-    }, [])
-  }
+  useEffect(() => {
+    getUser()
+  }, [])
 
   function PrevArrow({ onClick }) {
     return (

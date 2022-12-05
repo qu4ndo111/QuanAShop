@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -47,10 +47,10 @@ const Navbar = () => {
   }
 
   function userAvatar() {
-    if(user && user[0].avatar) {
-      return urlFor(user[0].avatar)
-    } else if(user && !user[0].avatar && user[0].avatarURL) {
-      return user[0].avatarURL
+    if(user && user[0]?.avatar) {
+      return urlFor(user[0]?.avatar)
+    } else if(user && !user[0]?.avatar && user[0]?.avatarURL) {
+      return user[0]?.avatarURL
     }
   }
 

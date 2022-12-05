@@ -24,11 +24,9 @@ const userProfile = () => {
     }
   }
 
-  if (typeof window !== 'undefined') {
-    useEffect(() => {
-      getUser()
-    }, [])
-  }
+  useEffect(() => {
+    getUser()
+  }, [])
 
   function userAvatar() {
     if(user && user[0].avatar) {

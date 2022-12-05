@@ -22,11 +22,9 @@ const ProductDetails = ({ product, products }) => {
         }
     }
 
-    if (typeof window !== 'undefined') {
-        useEffect(() => {
-            getUser()
-        }, [])
-    }
+    useEffect(() => {
+        getUser()
+    }, [])
 
     var currentdate = new Date();
     var datetime = currentdate.getFullYear() + "/" + currentdate.getMonth()

@@ -19,11 +19,9 @@ const edit = () => {
         }
     }
 
-    if (typeof window !== 'undefined') {
-        useEffect(() => {
-            getUser()
-        }, [])
-    }
+    useEffect(() => {
+        getUser()
+    }, [])
 
     const router = useRouter()
 
