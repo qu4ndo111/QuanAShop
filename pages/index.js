@@ -29,21 +29,21 @@ const Home = ({ products, bannerData, categoryData }) => {
     getUser()
   }, [])
 
-  function PrevArrow({ onClick }) {
-    return (
-      <div onClick={onClick} className='prev-btn'>
-        <BiLeftArrow size={30} />
-      </div>
-    )
-  }
+  // function PrevArrow({ onClick }) {
+  //   return (
+  //     <div onClick={onClick} className='prev-btn'>
+  //       <BiLeftArrow size={30} />
+  //     </div>
+  //   )
+  // }
 
-  function NextArrow({ onClick }) {
-    return (
-      <div onClick={onClick} className='next-btn'>
-        <BiRightArrow size={30} />
-      </div>
-    )
-  }
+  // function NextArrow({ onClick }) {
+  //   return (
+  //     <div onClick={onClick} className='next-btn'>
+  //       <BiRightArrow size={30} />
+  //     </div>
+  //   )
+  // }
 
   const setting = {
     infinite: true,
@@ -53,8 +53,8 @@ const Home = ({ products, bannerData, categoryData }) => {
     autoplay: true,
     speed: 300,
     autoplaySpeed: 2000,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
+    // prevArrow: <PrevArrow />,
+    // nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1284,
