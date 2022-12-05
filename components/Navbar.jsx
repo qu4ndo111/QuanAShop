@@ -46,6 +46,14 @@ const Navbar = () => {
     }
   }
 
+  function userAvatar() {
+    if(user && user[0].avatar) {
+      return urlFor(user[0].avatar)
+    } else if(user && !user[0].avatar && user[0].avatarURL) {
+      return urlFor(user[0].avatarURL)
+    }
+  }
+
   return (
     <div>
       <div className='navbar-container'>
@@ -91,7 +99,7 @@ const Navbar = () => {
             <div className={openSearch ? 'profile-close' : 'profile profile-image'} onClick={() => {
               setOpenProfileMenus(prev => !prev)
             }} >
-              <img src={user ? urlFor(user[0].avatar) : ''} className={openSearch ? 'avatar' : ''}/>
+              <img src={userAvatar()} className={openSearch ? 'avatar' : ''}/>
             </div>
             {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
               <button type='button' className='profile-menus-btn' onClick={() => {
