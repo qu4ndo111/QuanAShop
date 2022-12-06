@@ -30,7 +30,7 @@ const edit = () => {
     const { user, setUser } = useStateContext
 
     const [file, setFile] = useState()
-    
+
     const [userInfoForm, setUserInfoForm] = useState({
         fullName: '',
         address: '',
@@ -49,27 +49,29 @@ const edit = () => {
 
     function HandleSubmitInfo(e) {
         e.preventDefault()
-        if(userInfoForm.address != '' && userInfoForm.fullName != '' && userInfoForm.phoneNumber != '') {
-            client.patch(user ? user[0]._id : null).set({
-                avatar: {
-                    _type: 'image',
-                    asset: {
-                        _type: 'reference',
-                        _ref: file._id
+        if (userInfoForm.address != '' && userInfoForm.fullName != '' && userInfoForm.phoneNumber != '') {
+            if (file) {
+                client.patch(user ? user[0]._id : null).set({
+                    avatar: {
+                        _type: 'image',
+                        asset: {
+                            _type: 'reference',
+                            _ref: file._id
+                        }
                     }
-                }
-            }).commit()
-            client.patch(user ? user[0]._id : null).set({fullName: userInfoForm.fullName, address: userInfoForm.address, phoneNumber: userInfoForm.phoneNumber}).commit().then(() => router.back())
+                }).commit()
+            }
+            client.patch(user ? user[0]._id : null).set({ fullName: userInfoForm.fullName, address: userInfoForm.address, phoneNumber: userInfoForm.phoneNumber }).commit().then(() => router.back())
         } else {
             setCheckInfo(true)
         }
-        
-        
+
+
     }
 
     function handleChangeInfo(e) {
         setCheckInfo(false)
-        const {name, value} = e.target
+        const { name, value } = e.target
         setUserInfoForm(prev => {
             return {
                 ...prev,
@@ -79,20 +81,20 @@ const edit = () => {
     }
 
     function userAvatar() {
-        if(user && user[0].avatar && !file?.url) {
-          return urlFor(user[0].avatar)
-        } else if(user && !user[0].avatar && user[0].avatarURL && !file?.url) {
-          return user[0].avatarURL
+        if (user && user[0].avatar && !file?.url) {
+            return urlFor(user[0].avatar)
+        } else if (user && !user[0].avatar && user[0].avatarURL && !file?.url) {
+            return user[0].avatarURL
         } else if (file?.url) {
             return file?.url
         }
-      }
+    }
 
     return (
         <form className='user-profile-container' onSubmit={HandleSubmitInfo}>
             <div className='user-image'>
                 <div className='user-image-container'>
-                <img src={userAvatar()} className='user-avatar'/>
+                    <img src={userAvatar()} className='user-avatar' />
                     <label htmlFor='image-upload' className='change-image'>
                         <input
                             type='file'
