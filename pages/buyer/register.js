@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { client, urlFor } from '../../lib/client'
 import { BiShow, BiHide } from 'react-icons/bi'
 import Link from 'next/link'
@@ -8,7 +8,14 @@ import { GoogleLogin } from '@react-oauth/google'
 
 const register = ({ bannerData }) => {
 
-  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setRegisterForm, registerSuccess, setLoginForm, setWrongAccount } = useContext(Context)
+  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setUserExist, setRegisterForm, registerSuccess, setLoginForm, setWrongAccount } = useContext(Context)
+
+  useEffect(() => {
+    if (notMatchPassword) {
+      setUserExist(false)
+    }
+  }, [notMatchPassword])
+
 
   function showHidePassword() {
     if (passwordShown) {
@@ -25,8 +32,8 @@ const register = ({ bannerData }) => {
           <p className='showPassword'>Show password</p>
         </div>
       )
-      
-      
+
+
     }
   }
 
@@ -86,7 +93,7 @@ const register = ({ bannerData }) => {
           setRegisterForm({})
           setLoginForm({})
           setWrongAccount(false)
-          }}><Link href={'/buyer/login'}>Sign in</Link></span></p>
+        }}><Link href={'/buyer/login'}>Sign in</Link></span></p>
         <div className='line' />
         <p className='other-method'>Or login with</p>
         <div className='googleLogin'>

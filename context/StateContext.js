@@ -249,7 +249,6 @@ export const StateContext = ({ children }) => {
             setNotMatchPassword(true)
         } else if (registerForm.password === registerForm.repeatPassword) {
             createAccount()
-            setTimeout(() => {router.push('/buyer/login')}, 2500)
         }
 
 
