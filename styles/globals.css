@@ -1204,6 +1204,10 @@ h4 {
   border: 1px solid gray;
 }
 
+.password-container .red {
+  border: 2px solid #f02d34;
+}
+
 .login-form .password-container {
   position: relative;
   display: flex;

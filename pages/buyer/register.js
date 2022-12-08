@@ -64,6 +64,7 @@ const register = ({ bannerData }) => {
         <label htmlFor='RepeatPassword'>Repeat password:</label>
         <div className='password-container'>
           <input
+            className={notMatchPassword ? 'red' : ''}
             id='RepeatPassword'
             type={passwordShown ? 'text' : 'password'}
             placeholder='Repeat Password'
