@@ -204,6 +204,7 @@ export const StateContext = ({ children }) => {
 
             if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName) {
                 setRegisterSuccess(true)
+                setTimeout(() => router.push('/buyer/login'), 2000)
             }
         })
     }
