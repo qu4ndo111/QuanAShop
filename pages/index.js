@@ -94,10 +94,7 @@ const Home = ({ products, bannerData, categoryData }) => {
           product={product}
         />))}
       </Slider>
-      <ProductCategory products={products} categoryName={'Headphone'} categoryData={categoryData} />
-      <ProductCategory products={products} categoryName={'In ear'} categoryData={categoryData} />
-      <ProductCategory products={products} categoryName={'Speaker'} categoryData={categoryData} />
-
+      {categoryData.map(category => <ProductCategory products={products} categoryName={category.name} category={category} />)}
 
 
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
@@ -112,7 +109,7 @@ export const getServerSideProps = async () => {
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
 
-  const categoryQuery = '*[_type == "category"]'
+  const categoryQuery = '*[_type == "category"] | order(_createdAt asc)'
   const categoryData = await client.fetch(categoryQuery)
 
   return {

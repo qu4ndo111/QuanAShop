@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
-import { urlFor } from '../lib/client';
 import Product from './Product';
 
 
-const productCategory = ({ categoryName, products, categoryData }) => {
-
-    const category = categoryData?.find(a => a.name == categoryName)
+const productCategory = ({ categoryName, products, category }) => {
 
     return (
         <div className='category-container'>
