@@ -35,7 +35,7 @@ const ProductDetails = ({ product, products }) => {
     const [index, setIndex] = useState(0)
 
     const [userReview, setUserReview] = useState([{
-        slug: slug,
+        slug: slug.current,
         comments: comment ? comment.map(data => {
             return {
                 _key: data._key,
@@ -85,22 +85,21 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
-    const userComments = userReview?.filter(comment => comment.slug === slug)
+    const userComments = userReview?.filter(comment => comment.slug === slug.current)
 
 
     function HandleSubmitComment(event) {
         event.preventDefault()
         client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(() => {
-            setUserReview(userReview.map(data => data.slug === slug ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
+            setUserReview(userReview.map(data => data.slug === slug.current ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
         }).then(() => setReviewData(prev => {
             return {
                 ...prev,
                 comment: ''
             }
         }))
-
+       
     }
-
     return (
         <div>
             <div className='product-detail-container'>
