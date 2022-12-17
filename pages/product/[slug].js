@@ -255,7 +255,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
     const products = await client.fetch(productQuery)
 
     return {
-        props: { products, product }
+        props: { products, product },
+        revalidate: 10,
     }
 }
 
