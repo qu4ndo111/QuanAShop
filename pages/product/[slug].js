@@ -44,15 +44,7 @@ const ProductDetails = ({ product, products }) => {
                 datetime: data.datetime,
                 avatar: data.avatar,
             }
-        }) : [
-            {
-                _key: nanoid(),
-                name: '',
-                comment: '',
-                avatar: null,
-                datetime: datetime
-            }
-        ]
+        }) : []
     }])
 
     function userAvatar() {
@@ -100,6 +92,7 @@ const ProductDetails = ({ product, products }) => {
         }))
        
     }
+
     return (
         <div>
             <div className='product-detail-container'>
@@ -129,7 +122,7 @@ const ProductDetails = ({ product, products }) => {
                             <AiFillStar />
                             <AiFillStar />
                             <AiOutlineStar />
-                            <p>(20)</p>
+                            <p>({userComments[0].comments.length})</p>
                         </div>
                     </div>
                     <h4>Details: </h4>
