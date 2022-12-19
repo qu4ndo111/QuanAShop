@@ -10,12 +10,18 @@ import { GoogleLogin } from '@react-oauth/google'
 
 const login = ({ bannerData }) => {
 
-  if (typeof window !== 'undefined') {
-    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
-    useEffect(() => {
-      setUser(userInfo)
-    }, [])
+  async function getUser() {
+    const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
+    if (userInfo) {
+      const query = `*[_type == "user" && userName == '${userInfo ? userInfo.userName : ''}' && password == '${userInfo ? userInfo.password : ''}']`
+      const userData = await client.fetch(query)
+      setUser(userData)
+    }
   }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   const { passwordShown, setPasswordShown, wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle, setRegisterSuccess, setUserExist, user, setUser } = useContext(Context)
 
