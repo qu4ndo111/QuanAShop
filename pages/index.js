@@ -51,7 +51,7 @@ const Home = ({ products, bannerData, categoryData }) => {
     slidesToScroll: 5,
     dots: true,
     autoplay: true,
-    speed: 300,
+    speed: 500,
     autoplaySpeed: 2000,
     // prevArrow: <PrevArrow />,
     // nextArrow: <NextArrow />,
