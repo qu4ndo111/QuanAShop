@@ -52,7 +52,7 @@ const Home = ({ products, bannerData, categoryData }) => {
     dots: true,
     autoplay: true,
     speed: 300,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1500,
     // prevArrow: <PrevArrow />,
     // nextArrow: <NextArrow />,
     responsive: [

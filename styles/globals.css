@@ -454,7 +454,6 @@ h4 {
   text-align: center;
   margin: 1.5em 0;
   color: #324d67;
-  padding-left: 3em;
 }
 
 .products-heading>h2 {
@@ -469,7 +468,6 @@ h4 {
 
 .best-selling-product-slider {
   margin-top: 1em;
-  margin-left: 60px;
   padding-bottom: 2em;
   max-height: 280px;
   text-align: center;
