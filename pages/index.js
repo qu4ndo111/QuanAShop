@@ -95,8 +95,6 @@ const Home = ({ products, bannerData, categoryData }) => {
         />))}
       </Slider>
       {categoryData.map(category => <ProductCategory products={products} categoryName={category.name} category={category} />)}
-
-
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </div>
   )
