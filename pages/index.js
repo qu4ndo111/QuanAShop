@@ -51,8 +51,8 @@ const Home = ({ products, bannerData, categoryData }) => {
     slidesToScroll: 5,
     dots: true,
     autoplay: true,
-    speed: 500,
-    autoplaySpeed: 2000,
+    speed: 300,
+    autoplaySpeed: 1000,
     // prevArrow: <PrevArrow />,
     // nextArrow: <NextArrow />,
     responsive: [
@@ -89,12 +89,12 @@ const Home = ({ products, bannerData, categoryData }) => {
         <h2>Best selling Products</h2>
         <p>Speakers of many variations</p>
       </div>
-      <Slider className='best-selling-product-container best-products' {...setting}>
+      <Slider className='best-selling-product-slider best-products' {...setting}>
         {products?.map((product => <Product key={product._id}
           product={product}
         />))}
       </Slider>
-      {categoryData.map(category => <ProductCategory products={products} categoryName={category.name} category={category} />)}
+      {categoryData.map(category => <ProductCategory products={products} categoryName={category.name} category={category} key={category._id} />)}
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </div>
   )
