@@ -61,11 +61,11 @@ export const StateContext = ({ children }) => {
         comment: ''
     })
 
-    const [theme, setTheme] = useLocalStorage('theme', 'light')
     const [checked, setChecked] = useLocalStorage('checked', false)
+    const [theme, setTheme] = useLocalStorage('theme', checked ? 'dark' : 'light')
 
     let foundProduct
-
+    let index
 
     async function fetchData() {
         const query = '*[_type == "product"]';
@@ -90,10 +90,6 @@ export const StateContext = ({ children }) => {
         if (windowWidth >= 600) setOpenSearch(false)
         if (windowWidth <= 600) setSearching(false)
     }, [windowWidth])
-
-    useEffect(() => {
-        setTheme(checked ? 'dark' : 'light')
-    }, [])
     
 
     const onAdd = (product, quantity) => {
@@ -277,7 +273,7 @@ export const StateContext = ({ children }) => {
     }
 
     function darkMode() {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light')
+        setTheme(checked ? 'light' : 'dark')
         setChecked(prev => !prev)
     }
 

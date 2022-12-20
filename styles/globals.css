@@ -269,10 +269,10 @@ h4 {
   height: 100vh;
   max-width: 600px;
   float: right;
-  background-color: white;
+  background-color: var(--background-white);
   padding: 40px 10px;
   position: relative;
-
+  color: var(--text-black);
 }
 
 .cart-heading {
@@ -283,7 +283,7 @@ h4 {
   font-size: 1rem;
   gap: 10px;
   cursor: pointer;
-
+  color: var(--text-black);
 }
 
 .cart-heading .heading {
