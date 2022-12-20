@@ -862,7 +862,7 @@ h4 {
   margin-top: 40px;
   font-size: 1rem;
   font-weight: 500;
-  background-color: var(--background-white);
+  background-color: var(--background-input-color);
   color: #f02d34;
   cursor: pointer;
   width: 200px;
