@@ -273,8 +273,7 @@ export const StateContext = ({ children }) => {
     }
 
     function darkMode() {
-        const newTheme = theme === 'light' ? 'dark' : 'light'
-        setTheme(newTheme)
+        setTheme(prev => prev === 'light' ? 'dark' : 'light')
         setChecked(prev => !prev)
     }
 
