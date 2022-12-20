@@ -62,7 +62,7 @@ export const StateContext = ({ children }) => {
     })
 
     const [checked, setChecked] = useLocalStorage('checked', false)
-    const [theme, setTheme] = useLocalStorage('theme', checked ? 'dark' : 'light')
+    const [theme, setTheme] = useLocalStorage('theme' ? 'dark' : 'light')
 
     let foundProduct
     let index
@@ -273,7 +273,8 @@ export const StateContext = ({ children }) => {
     }
 
     function darkMode() {
-        setTheme(checked ? 'light' : 'dark')
+        const newTheme = theme === 'light' ? 'dark' : 'light'
+        setTheme(newTheme)
         setChecked(prev => !prev)
     }
 
