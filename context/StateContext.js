@@ -61,7 +61,7 @@ export const StateContext = ({ children }) => {
         comment: ''
     })
 
-    const [checked, setChecked] = useLocalStorage('checked', false)
+    const [checked, setChecked] = useState('checked', false)
     const [theme, setTheme] = useLocalStorage('theme' ? 'dark' : 'light')
 
     let foundProduct

@@ -132,7 +132,7 @@ const Navbar = () => {
                 setUserExist(false)
                 localStorage.clear()
                 setOpenProfileMenus(false)
-                router.reload()
+                router.push('/')
               }}><ImExit /> Log out</button>
             </div>}
           </div>
