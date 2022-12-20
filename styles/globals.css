@@ -1028,6 +1028,7 @@ h4 {
 .feedback .user-box {
   width: 100%;
   margin-left: 5px;
+  color: var(--text-black);
 }
 
 .user-comment-box {
