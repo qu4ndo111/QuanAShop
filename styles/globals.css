@@ -511,7 +511,6 @@ h4 {
   position: absolute;
   top: 45%;
   right: 0;
-  
 }
 
 .product-card {
@@ -523,7 +522,6 @@ h4 {
   overflow: visible;
   margin-bottom: 1em;
   margin: auto;
-  z-index: !important;
   padding: 2em 0;
 }
 
