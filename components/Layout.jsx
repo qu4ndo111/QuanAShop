@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Head from 'next/head'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { Context } from '../context/StateContext'
 
 import MessengerCustomerChat from 'react-messenger-customer-chat'
 
 import { BsFillArrowUpCircleFill } from 'react-icons/bs'
 
 const Layout = ({ children }) => {
+
+  const useStateContext = useContext(Context)
+
+  const { theme } = useStateContext
 
   const [showButton, setShowButton] = useState(false)
 
@@ -31,7 +36,7 @@ const Layout = ({ children }) => {
 
 
   return (
-    <div className='layout'>
+    <div className='layout' data-theme={theme}>
       <Head>
         <title>QuanA Store </title>
       </Head>

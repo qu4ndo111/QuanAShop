@@ -5,6 +5,8 @@ import { client, urlFor } from "../lib/client";
 import jwtDecode from "jwt-decode";
 import { useRouter } from 'next/router';
 
+import useLocalStorage from "use-local-storage";
+
 export const Context = createContext()
 
 export const StateContext = ({ children }) => {
@@ -59,8 +61,10 @@ export const StateContext = ({ children }) => {
         comment: ''
     })
 
+    const [theme, setTheme] = useLocalStorage('theme', 'light')
+    const [checked, setChecked] = useState(false)
+
     let foundProduct
-    let index
 
 
     async function fetchData() {
@@ -267,6 +271,10 @@ export const StateContext = ({ children }) => {
         })
     }
 
+    function darkMode() {
+        setTheme(checked ? 'light' : 'dark')
+        setChecked(prev => !prev)
+    }
 
 
     const responseGoogle = (response) => {
@@ -326,6 +334,11 @@ export const StateContext = ({ children }) => {
                 setUser,
                 setReviewData,
                 setUser,
+                theme, 
+                setTheme,
+                checked, 
+                setChecked,
+                darkMode
             }}
         >
             {children}

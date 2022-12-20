@@ -57,7 +57,16 @@ const Home = ({ products, bannerData, categoryData }) => {
     // nextArrow: <NextArrow />,
     responsive: [
       {
-        breakpoint: 1284,
+        breakpoint: 1550,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 1350,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -66,14 +75,14 @@ const Home = ({ products, bannerData, categoryData }) => {
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 900,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 620,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1

@@ -14,15 +14,19 @@ import { Context } from '../context/StateContext'
 
 import { urlFor } from '../lib/client'
 
+import Switch from "react-switch"
+
 const Navbar = () => {
 
   const router = useRouter()
 
   const useStateContext = React.useContext(Context)
 
-  const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching, setLoginForm, setRegisterForm, user, setUser, setUserExist } = useStateContext
+  const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching, setLoginForm, setRegisterForm, user, setUser, setUserExist, theme, setTheme, checked, setChecked, darkMode } = useStateContext
 
   const [openProfileMenus, setOpenProfileMenus] = useState(false)
+
+
 
   function changeClassName() {
     if (openSearch && !searching) {
@@ -47,9 +51,9 @@ const Navbar = () => {
   }
 
   function userAvatar() {
-    if(user && user[0]?.avatar) {
+    if (user && user[0]?.avatar) {
       return urlFor(user[0]?.avatar)
-    } else if(user && !user[0]?.avatar && user[0]?.avatarURL) {
+    } else if (user && !user[0]?.avatar && user[0]?.avatarURL) {
       return user[0]?.avatarURL
     }
   }
@@ -87,31 +91,48 @@ const Navbar = () => {
             }
           </div>
         </div>
-        {!user && <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
-          setLoginForm({})
-          setRegisterForm({})
-          router.push('/buyer/login')
-        }} >
-          <FaUser className='user-icon' />
-        </div>}
+        {!user && <div className='profile-container'>
+          <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
+            setOpenProfileMenus(prev => !prev)
+          }} >
+            <FaUser className='user-icon' />
+          </div>
+          {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
+            <button type='button' className='profile-menus-btn' onClick={() => {
+              router.push('/buyer/login')
+              setOpenProfileMenus(false)
+              setLoginForm({})
+              setRegisterForm({})
+            }}><FaUser /> Login</button>
+            <label className='profile-menus-btn'>
+              <Switch onChange={() => darkMode()} checked={checked} />
+              <h4>Dark mode</h4>
+            </label>
+          </div>}
+        </div>
+        }
         {
           user && <div className='profile-container'>
             <div className={openSearch ? 'profile-close' : 'profile profile-image'} onClick={() => {
               setOpenProfileMenus(prev => !prev)
             }} >
-              <img src={userAvatar()} className={openSearch ? 'avatar' : ''}/>
+              <img src={userAvatar()} className={openSearch ? 'avatar' : ''} />
             </div>
             {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
               <button type='button' className='profile-menus-btn' onClick={() => {
                 router.push(`/user/${user[0].userName}`)
                 setOpenProfileMenus(false)
-              }}><FaUser/> View profile</button>
+              }}><FaUser /> View profile</button>
+              <label className='profile-menus-btn'>
+                <Switch onChange={() => darkMode()} checked={checked} />
+                <h4>Dark mode</h4>
+              </label>
               <button type='button' className={openSearch ? 'cart-icon-close' : 'profile-menus-btn'} onClick={() => {
                 setUser(null)
                 setUserExist(false)
                 localStorage.clear()
                 setOpenProfileMenus(false)
-                router.push('/')
+                router.reload()
               }}><ImExit /> Log out</button>
             </div>}
           </div>

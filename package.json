@@ -26,8 +26,10 @@
     "react-id-generator": "^3.0.2",
     "react-messenger-customer-chat": "^0.8.0",
     "react-slick": "^0.29.0",
+    "react-switch": "^7.0.0",
     "slick-carousel": "^1.8.1",
-    "stripe": "8.209.0"
+    "stripe": "8.209.0",
+    "use-local-storage": "^2.3.6"
   },
   "devDependencies": {
     "eslint": "8.23.0",
