@@ -10,6 +10,7 @@ const category = ({ categoryName, products }) => {
 
   return (
     <div className='categories-container'>
+      <h1>{categoryName.name}</h1>
       <div className='product-all'>
         {products?.map((product => {
           if (product.categories?.includes(categoryName.name)) {
@@ -57,7 +58,8 @@ export const getStaticProps = async ({ params: { category } }) => {
   const products = await client.fetch(productsQuery)
 
   return {
-    props: { products, categoryName }
+    props: { products, categoryName },
+    revalidate: 3,
   }
 }
 
