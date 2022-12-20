@@ -1108,7 +1108,7 @@ h4 {
   right: 100px;
   top: -6px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid var(--text-black);
   padding: .4em;
   cursor: pointer;
   transform: scale(1, 1);
@@ -1134,6 +1134,7 @@ h4 {
 .profile .user-icon {
   width: 20px;
   height: 15px;
+  color: var(--text-black);
 }
 
 .profile-menus {
