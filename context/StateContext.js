@@ -62,7 +62,7 @@ export const StateContext = ({ children }) => {
     })
 
     const [theme, setTheme] = useLocalStorage('theme', 'light')
-    const [checked, setChecked] = useState(false)
+    const [checked, setChecked] = useLocalStorage('checked', false)
 
     let foundProduct
 
@@ -90,6 +90,11 @@ export const StateContext = ({ children }) => {
         if (windowWidth >= 600) setOpenSearch(false)
         if (windowWidth <= 600) setSearching(false)
     }, [windowWidth])
+
+    useEffect(() => {
+        setTheme(checked ? 'dark' : 'light')
+    }, [])
+    
 
     const onAdd = (product, quantity) => {
         const checkProductInCart = cartItems.find(item => item._id === product._id)
@@ -272,7 +277,7 @@ export const StateContext = ({ children }) => {
     }
 
     function darkMode() {
-        setTheme(checked ? 'light' : 'dark')
+        setTheme(prev => prev === 'light' ? 'dark' : 'light')
         setChecked(prev => !prev)
     }
 
