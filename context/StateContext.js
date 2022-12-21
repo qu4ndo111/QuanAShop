@@ -257,9 +257,6 @@ export const StateContext = ({ children }) => {
             createAccount()
         }
 
-
-
-
     }
 
     function HandleChangeComment(event) {
@@ -276,7 +273,6 @@ export const StateContext = ({ children }) => {
         setTheme(prev => prev === 'light' ? 'dark' : 'light')
         setChecked(prev => !prev)
     }
-
 
     const responseGoogle = (response) => {
         var decoded = jwtDecode(response.credential)
