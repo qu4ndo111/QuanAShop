@@ -1276,6 +1276,7 @@ h4 {
   padding-left: 10px;
   border: 1px solid gray;
   background-color: var(--background-input-color);
+  color: var(--text-black);
 }
 
 .password-container .red {
