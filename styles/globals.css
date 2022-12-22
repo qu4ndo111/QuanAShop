@@ -513,38 +513,11 @@ h4 {
   gap: 15px;
   margin-top: 1em;
   margin-left: 60px;
+  margin-right: 10%;
   padding-bottom: 2em;
   max-height: 280px;
   text-align: center;
-}
-
-.prev-btn,
-.next-btn {
-  border: none;
-  background-color: transparent;
-  transform: scale(1, 1);
-  color: #f02d34;
-  cursor: pointer;
-  z-index: 2000;
-  
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-  transform: scale(1.1, 1.1);
-}
-
-.prev-btn {
-  position: absolute;
-  top: 45%;
-  left: -50px;
-
-}
-
-.next-btn {
-  position: absolute;
-  top: 45%;
-  right: 0;
+  overflow: hidden;
 }
 
 .product-card {
@@ -600,17 +573,19 @@ h4 {
 .category-container .more-products {
   align-self: flex-end;
   margin-right: 20%;
+  margin-top: 3em;
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-title);
   cursor: pointer;
   border-bottom: 1px solid var(--text-title);
   width: fit-content;
+
 }
 
 /* category-page */
 .categories-container {
-  min-width: 800px;
+  min-width: 700px;
   display: flex;
   flex-direction: column;
   margin: 6em 12em;
@@ -631,6 +606,7 @@ h4 {
   gap: 30px;
   text-align: center;
   overflow-y: auto;
+  flex-wrap: wrap;
 }
 
 .categories-container .go-back {
@@ -1562,6 +1538,7 @@ h4 {
 
   .best-selling-product-container {
     margin-left: 0;
+    margin-right: 0;
     justify-content: center;
     max-height: 500px;
     overflow-y: scroll;

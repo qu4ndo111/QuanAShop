@@ -11,7 +11,7 @@ const productCategory = ({ categoryName, products, category }) => {
                 <h2>{categoryName}</h2>
             </div>
             <div className='best-selling-product-container'>
-                {products?.slice(0, 6).map((product => {
+                {products?.map((product => {
                     if (product.categories?.includes(categoryName)) {
                         return (
                             <Product key={product._id}
