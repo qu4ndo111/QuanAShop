@@ -50,19 +50,13 @@ const ProductDetails = ({ product, products }) => {
     function userAvatar() {
         if (user && user[0].avatar) {
             return user[0].avatar
-        } else if (user && !user[0].avatar && user[0].avatarURL) {
-            return urlFor(user[0].avatarURL)
         } else if (!user) {
             return null
         }
     }
 
     function commentAvatar(data) {
-        if (!data) {
-            return <FaUser className='user-icon' size={30} />
-        } else {
-            return <img src={urlFor(data)} className='user-comment-image'/>
-        }
+       return <img src={data ? urlFor(data) : 'https://cdn.landesa.org/wp-content/uploads/default-user-image.png'} className='user-comment-image' />
     }
 
     const useStateContext = useContext(Context)
@@ -79,18 +73,47 @@ const ProductDetails = ({ product, products }) => {
 
     const userComments = userReview?.filter(comment => comment.slug === slug.current)
 
+    const setName = () => {
+        if (user && user[0].fullName) {
+            return user[0].fullName
+        } else if (user && !user[0].fullName) {
+            return user[0].userName
+        } else if (!user) {
+            return reviewData.name
+        }
+    }
+
 
     function HandleSubmitComment(event) {
         event.preventDefault()
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(() => {
-            setUserReview(userReview.map(data => data.slug === slug.current ? { ...data, comments: [...data.comments, { _key: nanoid(), name: user ? user[0].userName : reviewData.name, comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(() => {
+            setUserReview(userReview.map(data => data.slug === slug.current ? { ...data, comments: [...data.comments, { _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
         }).then(() => setReviewData(prev => {
             return {
                 ...prev,
                 comment: ''
             }
         }))
-       
+    }
+
+    const displayUserName = () => {
+        if (user && user[0].fullName) {
+            return user[0].fullName
+        } else if (user && !user[0].fullName) {
+            return user[0].userName
+        } else if (!user) {
+            return 'Please enter your name'
+        }
+    }
+
+    const value = () => {
+        if (user && user[0].fullName) {
+            return user[0].fullName
+        } else if (user && !user[0].fullName) {
+            return user[0].userName
+        } else if (!user) {
+            return reviewData.name
+        }
     }
 
     return (
@@ -171,9 +194,9 @@ const ProductDetails = ({ product, products }) => {
                     <h2>Review product</h2>
                     <input
                         type='text'
-                        placeholder={user ? user.userName : 'Please enter your name'}
+                        placeholder={displayUserName()}
                         onChange={HandleChangeComment}
-                        value={user ? user[0].userName : reviewData.name}
+                        value={value()}
                         name='name'
                         required
 
