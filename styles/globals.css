@@ -970,6 +970,7 @@ h4 {
   font-size: 1.1rem;
   font-weight: 700;
   border-radius: 40px;
+  cursor: pointer;
 }
 
 .user-review-container button:hover {
