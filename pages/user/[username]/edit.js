@@ -5,7 +5,7 @@ import { AiOutlineCamera } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 
 import { Context } from '../../../context/StateContext'
-
+import { Spinner } from '../../../components'
 import { client, urlFor } from '../../../lib/client'
 
 const edit = () => {
@@ -39,12 +39,20 @@ const edit = () => {
 
     const [checkInfo, setCheckInfo] = useState(false)
 
+    const [loading, setLoading] = useState(false)
+
     function handleChangeImage(e) {
         const { type, name } = e.target.files[0]
+
+        setLoading(true)
+
         client.assets.upload('image', e.target.files[0], {
             contentType: type,
             filename: name,
-        }).then(document => setFile(document))
+        }).then(document => {
+            setFile(document)
+            setLoading(false)
+        })
     }
 
     function HandleSubmitInfo(e) {
@@ -95,7 +103,12 @@ const edit = () => {
             <div className='user-image'>
                 <div className='user-image-container'>
                     <img src={userAvatar()} className='user-avatar' />
-                    <label htmlFor='image-upload' className='change-image'>
+                    {loading ? (
+                        <span className='change-image-loading'>
+                            <Spinner className=''/>
+                        </span>
+                    ) : (
+                        <label htmlFor='image-upload' className='change-image'>
                         <input
                             type='file'
                             id='image-upload'
@@ -104,6 +117,7 @@ const edit = () => {
                         />
                         <AiOutlineCamera size={30} className='camera-icon' />
                     </label>
+                    )}
                 </div>
                 <h3>{user ? user[0].fullName : ''}</h3>
             </div>

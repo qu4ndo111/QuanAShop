@@ -7,3 +7,4 @@ export { default as FooterBanner } from './FooterBanner';
 export { default as Cart } from './Cart';
 export { default as SearchItem } from './SearchItem'
 export { default as ProductCategory } from './ProductCategory'
+export { default as Spinner } from './Spinner'

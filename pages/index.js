@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Product, FooterBanner, HeroBanner, ProductCategory } from '../components'
+import { Product, FooterBanner, HeroBanner, ProductCategory, Spinner } from '../components'
 import { client } from '../lib/client'
 import { Context } from '../context/StateContext'
 
