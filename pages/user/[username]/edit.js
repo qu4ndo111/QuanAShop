@@ -163,6 +163,7 @@ const edit = () => {
                 <h3>{user ? user[0].fullName : ''}</h3>
             </div>
             <div className='user-info'>
+                
                 {checkInfo && <h3>Please enter your information</h3>}
                 <div className='form-profile'>
                     <label htmlFor='name'>Full name</label>
