@@ -1258,8 +1258,9 @@ h4 {
   color: var(--text-black);
 }
 
-.password-container .red {
+.red {
   border: 2px solid #f02d34;
+  color: #f02d34;
 }
 
 .login-form .password-container {
@@ -1531,7 +1532,6 @@ h4 {
 }
 
 .form-profile input {
-  border: none;
   border-radius: 30px;
   height: 50px;
   font-size: 1.4rem;

@@ -105,6 +105,7 @@ const edit = () => {
                         onChange={handleChangeInfo}
                         name='confirmNewPassword'
                         required
+                        className={checkInfo ? 'red' : ''}
                     />
                 </div>
                 {showHidePassword()}
