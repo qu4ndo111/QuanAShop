@@ -75,7 +75,7 @@ const Home = ({ products, bannerData, categoryData }) => {
         }
       },
       {
-        breakpoint: 900,
+        breakpoint: 950,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2
