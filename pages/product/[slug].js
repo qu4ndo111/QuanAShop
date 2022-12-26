@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiFillCamera } from 'react-icons/ai'
-import { FaUser } from 'react-icons/fa'
 
 import { urlFor, client } from '../../lib/client'
 import Product from '../../components/Product'
