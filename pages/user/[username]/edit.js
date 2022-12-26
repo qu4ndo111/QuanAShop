@@ -58,18 +58,17 @@ const edit = () => {
     function HandleSubmitInfo(e) {
         e.preventDefault()
         if(user && user[0].fullName || user[0].address || user[0].phoneNumber) {
-            if (userInfoForm.address != '' || userInfoForm.fullName != '' || userInfoForm.phoneNumber != '') {
-                if (file) {
-                    client.patch(user ? user[0]._id : null).set({
-                        avatar: {
-                            _type: 'image',
-                            asset: {
-                                _type: 'reference',
-                                _ref: file._id
-                            }
+            if (userInfoForm.address != '' || userInfoForm.fullName != '' || userInfoForm.phoneNumber != '' || file) {
+                client.patch(user ? user[0]._id : null).set({
+                    avatar: {
+                        _type: 'image',
+                        asset: {
+                            _type: 'reference',
+                            _ref: file._id
                         }
-                    }).commit()
-                }
+                    }
+                }).commit()
+                
                 client.patch(user ? user[0]._id : null).set({ fullName: userInfoForm.fullName === '' ? user[0].fullName : userInfoForm.fullName, address: userInfoForm.address === '' ? user[0].address : userInfoForm.address , phoneNumber: userInfoForm.phoneNumber === '' ? user[0].phoneNumber : userInfoForm.phoneNumber }).commit().then(() => router.back())
             } else {
                 setCheckInfo(true)
