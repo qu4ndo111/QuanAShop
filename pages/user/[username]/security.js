@@ -91,6 +91,7 @@ const edit = () => {
                         placeholder='Enter your new password'
                         onChange={handleChangeInfo}
                         name='newPassword'
+                        required
                     />
                 </div>
 
@@ -103,6 +104,7 @@ const edit = () => {
                         placeholder='Confirm your new password'
                         onChange={handleChangeInfo}
                         name='confirmNewPassword'
+                        required
                     />
                 </div>
                 {showHidePassword()}

@@ -57,23 +57,41 @@ const edit = () => {
 
     function HandleSubmitInfo(e) {
         e.preventDefault()
-        if (userInfoForm.address != '' && userInfoForm.fullName != '' && userInfoForm.phoneNumber != '') {
-            if (file) {
-                client.patch(user ? user[0]._id : null).set({
-                    avatar: {
-                        _type: 'image',
-                        asset: {
-                            _type: 'reference',
-                            _ref: file._id
+        if(user && user[0].fullName || user[0].address || user[0].phoneNumber) {
+            if (userInfoForm.address != '' || userInfoForm.fullName != '' || userInfoForm.phoneNumber != '') {
+                if (file) {
+                    client.patch(user ? user[0]._id : null).set({
+                        avatar: {
+                            _type: 'image',
+                            asset: {
+                                _type: 'reference',
+                                _ref: file._id
+                            }
                         }
-                    }
-                }).commit()
+                    }).commit()
+                }
+                client.patch(user ? user[0]._id : null).set({ fullName: userInfoForm.fullName === '' ? user[0].fullName : userInfoForm.fullName, address: userInfoForm.address === '' ? user[0].address : userInfoForm.address , phoneNumber: userInfoForm.phoneNumber === '' ? user[0].phoneNumber : userInfoForm.phoneNumber }).commit().then(() => router.back())
+            } else {
+                setCheckInfo(true)
             }
-            client.patch(user ? user[0]._id : null).set({ fullName: userInfoForm.fullName, address: userInfoForm.address, phoneNumber: userInfoForm.phoneNumber }).commit().then(() => router.back())
         } else {
-            setCheckInfo(true)
+            if (userInfoForm.address != '' && userInfoForm.fullName != '' && userInfoForm.phoneNumber != '') {
+                if (file) {
+                    client.patch(user ? user[0]._id : null).set({
+                        avatar: {
+                            _type: 'image',
+                            asset: {
+                                _type: 'reference',
+                                _ref: file._id
+                            }
+                        }
+                    }).commit()
+                }
+                client.patch(user ? user[0]._id : null).set({ fullName: userInfoForm.fullName, address: userInfoForm.address, phoneNumber: userInfoForm.phoneNumber }).commit().then(() => router.back())
+            } else {
+                setCheckInfo(true)
+            }
         }
-
 
     }
 
@@ -95,6 +113,30 @@ const edit = () => {
             return user[0].avatarURL
         } else if (file?.url) {
             return file?.url
+        }
+    }
+
+    function userName(placeholder) {
+        if(user && user[0].fullName) {
+            return user[0].fullName
+        } else {
+            return placeholder
+        }
+    }
+
+    function userAddress(placeholder) {
+        if(user && user[0].address) {
+            return user[0].address
+        } else {
+            return placeholder
+        }
+    }
+
+    function userPhoneNumber(placeholder) {
+        if(user && user[0].phoneNumber) {
+            return user[0].phoneNumber
+        } else {
+            return placeholder
         }
     }
 
@@ -128,7 +170,7 @@ const edit = () => {
                     <input
                         id='name'
                         type='text'
-                        placeholder='Enter your full name'
+                        placeholder={userName('Enter your full name')}
                         onChange={handleChangeInfo}
                         name='fullName'
                     />
@@ -140,7 +182,7 @@ const edit = () => {
                     <input
                         id='address'
                         type='text'
-                        placeholder='Enter your address'
+                        placeholder={userAddress('Enter your address')}
                         onChange={handleChangeInfo}
                         name='address'
                     />
@@ -151,7 +193,7 @@ const edit = () => {
                     <input
                         id='phonenumber'
                         type='text'
-                        placeholder='Enter your phone number'
+                        placeholder={userPhoneNumber('Enter your phone number')}
                         onChange={handleChangeInfo}
                         name='phoneNumber'
                     />
