@@ -4,8 +4,6 @@ import { Product, FooterBanner, HeroBanner, ProductCategory } from '../component
 import { client } from '../lib/client'
 import { Context } from '../context/StateContext'
 
-import { BiLeftArrow, BiRightArrow } from 'react-icons/bi'
-
 import Slider from "react-slick"
 
 import "slick-carousel/slick/slick.css";
@@ -29,22 +27,6 @@ const Home = ({ products, bannerData, categoryData }) => {
     getUser()
   }, [])
 
-  // function PrevArrow({ onClick }) {
-  //   return (
-  //     <div onClick={onClick} className='prev-btn'>
-  //       <BiLeftArrow size={30} />
-  //     </div>
-  //   )
-  // }
-
-  // function NextArrow({ onClick }) {
-  //   return (
-  //     <div onClick={onClick} className='next-btn'>
-  //       <BiRightArrow size={30} />
-  //     </div>
-  //   )
-  // }
-
   const setting = {
     infinite: true,
     slidesToShow: 5,
@@ -53,8 +35,6 @@ const Home = ({ products, bannerData, categoryData }) => {
     autoplay: true,
     speed: 300,
     autoplaySpeed: 2000,
-    // prevArrow: <PrevArrow />,
-    // nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1550,
