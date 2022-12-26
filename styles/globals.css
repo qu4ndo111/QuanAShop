@@ -78,6 +78,9 @@ h4 {
   transform: scale(1.1, 1.1);
 }
 
+.Loading {
+  text-align: center;
+}
 /* Navbar */
 
 .navbar-container {

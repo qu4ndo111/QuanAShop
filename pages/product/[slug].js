@@ -6,12 +6,14 @@ import { FaUser } from 'react-icons/fa'
 import { urlFor, client } from '../../lib/client'
 import Product from '../../components/Product'
 import { Context } from '../../context/StateContext'
+import Spinner from '../../components/Spinner'
 
 import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
 
     const { image, name, details, price, categories, _id, comment, slug, } = product
+    const [loading, setLoading] = useState(false)
 
     async function getUser() {
         const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
@@ -83,17 +85,20 @@ const ProductDetails = ({ product, products }) => {
         }
     }
 
-
     function HandleSubmitComment(event) {
         event.preventDefault()
+        setLoading(true)
         client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(() => {
             setUserReview(userReview.map(data => data.slug === slug.current ? { ...data, comments: [...data.comments, { _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
-        }).then(() => setReviewData(prev => {
-            return {
-                ...prev,
-                comment: ''
-            }
-        }))
+        }).then(() => {
+            setReviewData(prev => {
+                return {
+                    ...prev,
+                    comment: ''
+                }
+            })
+            setLoading(false)
+        })
     }
 
     const displayUserName = () => {
@@ -220,7 +225,8 @@ const ProductDetails = ({ product, products }) => {
                         <button type='submit'>Post comment</button>
                     </div>
                     <div>
-                        <div>
+                        {!loading ? (
+                            <div>
                             {userComments?.map(data => data.comments.map(data => (
                                 data.name && <div className='feedback' key={data._key}>
                                     {commentAvatar(data.avatar)}
@@ -234,6 +240,12 @@ const ProductDetails = ({ product, products }) => {
                                 </div>
                             )))}
                         </div>
+                        ) : (
+                           <div className='Loading'>
+                             <Spinner />
+                           </div>
+                        )
+                        }
                     </div>
                 </form>
             </div>
