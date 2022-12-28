@@ -58,7 +58,7 @@ const ProductDetails = ({ product, products }) => {
     }
 
     function commentAvatar(data) {
-       return <img src={data ? urlFor(data) : 'https://cdn.landesa.org/wp-content/uploads/default-user-image.png'} className='user-comment-image' />
+        return <img src={data ? urlFor(data) : 'https://cdn.landesa.org/wp-content/uploads/default-user-image.png'} className='user-comment-image' />
     }
 
     const useStateContext = useContext(Context)
@@ -77,6 +77,27 @@ const ProductDetails = ({ product, products }) => {
         const userComments = userReview?.filter(comment => comment.slug === slug.current)
         setUserComments(userComments)
     }, [userReview])
+
+    const displayUserComment = () => {
+        if (userComments[0]?.slug === slug.current) {
+            return (
+                <div>
+                    {userComments?.map(data => data.comments.map(data => (
+                        data.name && <div className='feedback' key={data._key}>
+                            {commentAvatar(data.avatar)}
+                            <div className='user-box'>
+                                <h3>{data.name}</h3>
+                                <div className='user-comment-box'>
+                                    <p className='user-comment'>{data.comment}</p>
+                                    <p className='user-date'>{data.datetime}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )))}
+                </div>
+            )
+        }
+    }
 
     const setName = () => {
         if (user && user[0].fullName) {
@@ -153,7 +174,7 @@ const ProductDetails = ({ product, products }) => {
                             <AiFillStar />
                             <AiFillStar />
                             <AiOutlineStar />
-                            <p>({userComments[0]?.comments.length})</p>
+                            <p>({userComments[0]?.slug === slug.current ? userComments[0]?.comments.length : 0})</p>
                         </div>
                     </div>
                     <h4>Details: </h4>
@@ -228,25 +249,10 @@ const ProductDetails = ({ product, products }) => {
                         <button type='submit'>Post comment</button>
                     </div>
                     <div>
-                        {!loading ? (
-                            <div>
-                            {userComments?.map(data => data.comments.map(data => (
-                                data.name && <div className='feedback' key={data._key}>
-                                    {commentAvatar(data.avatar)}
-                                    <div className='user-box'>
-                                        <h3>{data.name}</h3>
-                                        <div className='user-comment-box'>
-                                            <p className='user-comment'>{data.comment}</p>
-                                            <p className='user-date'>{data.datetime}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )))}
-                        </div>
-                        ) : (
-                           <div className='Loading'>
-                             <Spinner />
-                           </div>
+                        {!loading ? displayUserComment() : (
+                            <div className='Loading'>
+                                <Spinner />
+                            </div>
                         )
                         }
                     </div>
