@@ -77,9 +77,6 @@ const ProductDetails = ({ product, products }) => {
         const userComments = userReview?.filter(comment => comment.slug === slug.current)
         setUserComments(userComments)
     }, [])
-    
-
-    console.log(userComments)
 
     const setName = () => {
         if (user && user[0].fullName) {
