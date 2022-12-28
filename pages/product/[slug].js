@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
 
-    const { image, name, details, price, categories, _id, slug, comment } = product
+    const { image, name, details, price, categories, _id, slug, } = product
     const [loading, setLoading] = useState(false)
     const [userComments, setUserComments] = useState()
     const [index, setIndex] = useState(0)
