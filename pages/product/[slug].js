@@ -76,7 +76,7 @@ const ProductDetails = ({ product, products }) => {
     useEffect(() => {
         const userComments = userReview?.filter(comment => comment.slug === slug.current)
         setUserComments(userComments)
-    }, [])
+    }, [userReview])
 
     const setName = () => {
         if (user && user[0].fullName) {
