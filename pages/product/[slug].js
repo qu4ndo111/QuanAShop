@@ -13,7 +13,7 @@ const ProductDetails = ({ product, products }) => {
 
     const { image, name, details, price, categories, _id, slug, } = product
     const [loading, setLoading] = useState(false)
-    const [userComments, setUserComments] = useState([])
+    const [userComments, setUserComments] = useState()
     const [index, setIndex] = useState(0)
 
     async function getUser() {
@@ -143,7 +143,7 @@ const ProductDetails = ({ product, products }) => {
                             <AiFillStar />
                             <AiFillStar />
                             <AiOutlineStar />
-                            <p>({userComments?.length})</p>
+                            <p>({userComments ? userComments.length : 0})</p>
                         </div>
                     </div>
                     <h4>Details: </h4>
