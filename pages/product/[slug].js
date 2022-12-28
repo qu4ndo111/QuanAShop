@@ -11,9 +11,10 @@ import { nanoid } from 'nanoid'
 
 const ProductDetails = ({ product, products }) => {
 
-    const { image, name, details, price, categories, _id, comment, slug, } = product
+    const { image, name, details, price, categories, _id, slug, comment } = product
     const [loading, setLoading] = useState(false)
-    const [userComments, setUserComments] = useState([])
+    const [userComments, setUserComments] = useState()
+    const [index, setIndex] = useState(0)
 
     async function getUser() {
         const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
@@ -28,26 +29,20 @@ const ProductDetails = ({ product, products }) => {
         getUser()
     }, [])
 
+    useEffect(() => {
+        setLoading(true)
+        const query = `*[_type == "product" && slug.current == '${slug.current}'][0]`
+        client.fetch(query).then((data) => {
+            setUserComments(data.comment)
+            setLoading(false)
+        })
+    }, [slug.current])
+
     var currentdate = new Date();
     var datetime = currentdate.getFullYear() + "/" + currentdate.getMonth()
         + "/" + currentdate.getDay() + " "
         + currentdate.getHours() + ":"
         + currentdate.getMinutes()
-
-    const [index, setIndex] = useState(0)
-
-    const [userReview, setUserReview] = useState([{
-        slug: slug.current,
-        comments: comment ? comment.map(data => {
-            return {
-                _key: data._key,
-                name: data.name,
-                comment: data.comment,
-                datetime: data.datetime,
-                avatar: data.avatar,
-            }
-        }) : []
-    }])
 
     function userAvatar() {
         if (user && user[0].avatar) {
@@ -73,32 +68,6 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
-    useEffect(() => {
-        const userComments = userReview?.filter(comment => comment.slug === slug.current)
-        setUserComments(userComments)
-    }, [userReview])
-
-    const displayUserComment = () => {
-        if (userComments[0]?.slug === slug.current) {
-            return (
-                <div>
-                    {userComments?.map(data => data.comments.map(data => (
-                        data.name && <div className='feedback' key={data._key}>
-                            {commentAvatar(data.avatar)}
-                            <div className='user-box'>
-                                <h3>{data.name}</h3>
-                                <div className='user-comment-box'>
-                                    <p className='user-comment'>{data.comment}</p>
-                                    <p className='user-date'>{data.datetime}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )))}
-                </div>
-            )
-        }
-    }
-
     const setName = () => {
         if (user && user[0].fullName) {
             return user[0].fullName
@@ -112,8 +81,8 @@ const ProductDetails = ({ product, products }) => {
     function HandleSubmitComment(event) {
         event.preventDefault()
         setLoading(true)
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(() => {
-            setUserReview(userReview.map(data => data.slug === slug.current ? { ...data, comments: [...data.comments, { _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }] } : data))
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(data => {
+           setUserComments(data.comment)
         }).then(() => {
             setReviewData(prev => {
                 return {
@@ -174,7 +143,7 @@ const ProductDetails = ({ product, products }) => {
                             <AiFillStar />
                             <AiFillStar />
                             <AiOutlineStar />
-                            <p>({userComments[0]?.slug === slug.current ? userComments[0]?.comments.length : 0})</p>
+                            <p>({userComments?.length})</p>
                         </div>
                     </div>
                     <h4>Details: </h4>
@@ -249,7 +218,20 @@ const ProductDetails = ({ product, products }) => {
                         <button type='submit'>Post comment</button>
                     </div>
                     <div>
-                        {!loading ? displayUserComment() : (
+                        {!loading ? <div>
+                            {userComments?.map(data => (
+                                data.name && <div className='feedback' key={data._key}>
+                                    {commentAvatar(data.avatar)}
+                                    <div className='user-box'>
+                                        <h3>{data.name}</h3>
+                                        <div className='user-comment-box'>
+                                            <p className='user-comment'>{data.comment}</p>
+                                            <p className='user-date'>{data.datetime}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div> : (
                             <div className='Loading'>
                                 <Spinner />
                             </div>
