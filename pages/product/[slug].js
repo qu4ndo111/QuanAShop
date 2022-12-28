@@ -149,7 +149,7 @@ const ProductDetails = ({ product, products }) => {
                             <AiFillStar />
                             <AiFillStar />
                             <AiOutlineStar />
-                            <p>({userComments[0].comments.length})</p>
+                            <p>({userComments[0]?.comments.length})</p>
                         </div>
                     </div>
                     <h4>Details: </h4>
