@@ -13,6 +13,7 @@ const ProductDetails = ({ product, products }) => {
 
     const { image, name, details, price, categories, _id, comment, slug, } = product
     const [loading, setLoading] = useState(false)
+    const [userComments, setUserComments] = useState([])
 
     async function getUser() {
         const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
@@ -72,7 +73,13 @@ const ProductDetails = ({ product, products }) => {
         setShowCart(true)
     }
 
-    const userComments = userReview?.filter(comment => comment.slug === slug.current)
+    useEffect(() => {
+        const userComments = userReview?.filter(comment => comment.slug === slug.current)
+        setUserComments(userComments)
+    }, [])
+    
+
+    console.log(userComments)
 
     const setName = () => {
         if (user && user[0].fullName) {
