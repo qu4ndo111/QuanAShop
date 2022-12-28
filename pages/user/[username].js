@@ -26,36 +26,41 @@ const userProfile = () => {
 
   useEffect(() => {
     getUser()
+    if(!user) {
+      router.push('/buyer/login')
+    }
   }, [])
 
   function userAvatar() {
-    if(user && user[0].avatar) {
+    if (user && user[0].avatar) {
       return urlFor(user[0].avatar)
-    } else if(user && !user[0].avatar && user[0].avatarURL) {
+    } else if (user && !user[0].avatar && user[0].avatarURL) {
       return user[0].avatarURL
     }
   }
 
   return (
-    <div className='user-profile-container'>
-      <div className='user-image'>
-        <div className='user-image-container'>
-          <img src={userAvatar()} className='user-avatar' />
+    <div>
+      {user && <div className='user-profile-container'>
+        <div className='user-image'>
+          <div className='user-image-container'>
+            <img src={userAvatar()} className='user-avatar' />
+          </div>
+          <h3>{user ? user[0].fullName : ''}</h3>
+          <Link href={user ? `${user[0]?.userName}/security` : '/'}>
+            <p className='change-password'>Change password</p>
+          </Link>
         </div>
-        <h3>{user ? user[0].fullName : ''}</h3>
-        <Link href={user ? `${user[0]?.userName}/security` : '/'}>
-          <p className='change-password'>Change password</p>
-        </Link>
-      </div>
-      <div className='user-info'>
-        <p className='user-detail'>Full name: <span>{user ? user[0].fullName : ''}</span></p>
+        <div className='user-info'>
+          <p className='user-detail'>Full name: <span>{user ? user[0].fullName : ''}</span></p>
 
-        <p className='user-detail'>Address: <span>{user ? user[0].address : ''}</span></p>
+          <p className='user-detail'>Address: <span>{user ? user[0].address : ''}</span></p>
 
-        <p className='user-detail'>Phone number: <span>{user ? user[0].phoneNumber : ''}</span></p>
+          <p className='user-detail'>Phone number: <span>{user ? user[0].phoneNumber : ''}</span></p>
 
-        <button type='button' className='edit-button' onClick={() => router.push(`${user[0].userName}/edit`)}>Edit profile</button>
-      </div>
+          <button type='button' className='edit-button' onClick={() => router.push(`${user[0].userName}/edit`)}>Edit profile</button>
+        </div>
+      </div>}
     </div>
   )
 }

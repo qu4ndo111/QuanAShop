@@ -92,12 +92,16 @@ const Navbar = () => {
           </div>
         </div>
         {!user && <div className='profile-container'>
-          <div className={openSearch ? 'profile-close' : 'profile'} onClick={() => {
-            setOpenProfileMenus(prev => !prev)
-          }} >
+          <div className={openSearch ? 'profile-close' : 'profile'}
+            onMouseEnter={() => setOpenProfileMenus(true)}
+            onMouseLeave={() => setOpenProfileMenus(false)}
+          >
             <FaUser className='user-icon' />
           </div>
-          {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
+          {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus no-user'}
+            onMouseEnter={() => setOpenProfileMenus(true)}
+            onMouseLeave={() => setOpenProfileMenus(false)}
+          >
             <button type='button' className='profile-menus-btn' onClick={() => {
               router.push('/buyer/login')
               setOpenProfileMenus(false)
@@ -113,12 +117,16 @@ const Navbar = () => {
         }
         {
           user && <div className='profile-container'>
-            <div className={openSearch ? 'profile-close' : 'profile profile-image'} onClick={() => {
-              setOpenProfileMenus(prev => !prev)
-            }} >
+            <div className={openSearch ? 'profile-close' : 'profile profile-image'}
+              onMouseEnter={() => setOpenProfileMenus(true)}
+              onMouseLeave={() => setOpenProfileMenus(false)}
+            >
               <img src={userAvatar()} className={openSearch ? 'avatar' : ''} />
             </div>
-            {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}>
+            {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}
+              onMouseEnter={() => setOpenProfileMenus(true)}
+              onMouseLeave={() => setOpenProfileMenus(false)}
+            >
               <button type='button' className='profile-menus-btn' onClick={() => {
                 router.push(`/user/${user[0].userName}`)
                 setOpenProfileMenus(false)
