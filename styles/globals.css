@@ -1652,7 +1652,7 @@ h4 {
   }
 
   .cart-container {
-    width: 415px;
+    max-width: 415px;
     padding: 4px;
   }
 
