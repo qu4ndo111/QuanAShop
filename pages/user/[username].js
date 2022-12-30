@@ -26,9 +26,6 @@ const userProfile = () => {
 
   useEffect(() => {
     getUser()
-    if(!user) {
-      router.push('/buyer/login')
-    }
   }, [])
 
   function userAvatar() {
