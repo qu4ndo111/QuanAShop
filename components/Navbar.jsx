@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -20,13 +20,28 @@ const Navbar = () => {
 
   const router = useRouter()
 
+  const ref = useRef()
+
   const useStateContext = React.useContext(Context)
 
   const { showCart, setShowCart, totalQuantities, searchText, HandleChange, toggleSearchBar, openSearch, searching, turnOffSearchItem, searchItems, productFound, setSearching, setLoginForm, setRegisterForm, user, setUser, setUserExist, theme, setTheme, checked, setChecked, darkMode } = useStateContext
 
   const [openProfileMenus, setOpenProfileMenus] = useState(false)
 
+  useEffect(() => {
+    const closeProfile = (e) => {
+      const { target } = e
+      if(!ref.current.contains(target)) {
+        setOpenProfileMenus(false)
+      }
+      
+    }
 
+    document.addEventListener('click', closeProfile)
+
+    return () => document.removeEventListener('click', closeProfile)
+  }, [])
+  
 
   function changeClassName() {
     if (openSearch && !searching) {
@@ -91,16 +106,13 @@ const Navbar = () => {
             }
           </div>
         </div>
-        {!user && <div className='profile-container'>
+        {!user && <div className='profile-container' ref={ref}>
           <div className={openSearch ? 'profile-close' : 'profile'}
-            onMouseEnter={() => setOpenProfileMenus(true)}
-            onMouseLeave={() => setOpenProfileMenus(false)}
+            onClick={() => setOpenProfileMenus(prev => !prev)}
           >
             <FaUser className='user-icon' />
           </div>
           {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus no-user'}
-            onMouseEnter={() => setOpenProfileMenus(true)}
-            onMouseLeave={() => setOpenProfileMenus(false)}
           >
             <button type='button' className='profile-menus-btn' onClick={() => {
               router.push('/buyer/login')
@@ -116,16 +128,13 @@ const Navbar = () => {
         </div>
         }
         {
-          user && <div className='profile-container'>
+          user && <div className='profile-container' ref={ref}>
             <div className={openSearch ? 'profile-close' : 'profile profile-image'}
-              onMouseEnter={() => setOpenProfileMenus(true)}
-              onMouseLeave={() => setOpenProfileMenus(false)}
+              onClick={() => setOpenProfileMenus(prev => !prev)}
             >
               <img src={userAvatar()} className={openSearch ? 'avatar' : ''} />
             </div>
             {openProfileMenus && <div className={openSearch ? 'cart-icon-close' : 'profile-menus'}
-              onMouseEnter={() => setOpenProfileMenus(true)}
-              onMouseLeave={() => setOpenProfileMenus(false)}
             >
               <button type='button' className='profile-menus-btn' onClick={() => {
                 router.push(`/user/${user[0].userName}`)
