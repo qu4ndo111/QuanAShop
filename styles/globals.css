@@ -1354,7 +1354,7 @@ h4 {
   margin: 6em auto;
   display: flex;
   justify-content: space-between;
-  height: 100vh;
+  height: fit-content;
   color: var(--text-black);
 }
 
