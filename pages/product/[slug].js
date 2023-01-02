@@ -48,7 +48,7 @@ const ProductDetails = ({ product, products }) => {
         if (user && user[0].avatar) {
             return user[0].avatar
         } else if (!user) {
-            return null
+            
         }
     }
 
