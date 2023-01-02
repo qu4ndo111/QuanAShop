@@ -80,7 +80,7 @@ const edit = () => {
 
 
     return (
-        <form className='user-profile-container' onSubmit={HandleSubmitInfo}>
+        <form className='user-profile-container change-password-form' onSubmit={HandleSubmitInfo}>
             <div className='user-info password'>
                 {checkInfo && <h3>Password do not match</h3>}
                 <div className='form-profile'>
