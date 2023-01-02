@@ -1354,12 +1354,8 @@ h4 {
   margin: 6em auto;
   display: flex;
   justify-content: space-between;
-  height: fit-content;
-  color: var(--text-black);
-}
-
-.change-password-form {
   height: 60vh;
+  color: var(--text-black);
 }
 
 .user-image {
