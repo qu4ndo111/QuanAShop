@@ -99,7 +99,6 @@ export const StateContext = ({ children }) => {
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities + quantity)
         if (checkProductInCart) {
 
-
             const updatedCartItems = cartItems.map(cartProduct => {
                 if (cartProduct._id === product._id) return {
                     ...cartProduct,
