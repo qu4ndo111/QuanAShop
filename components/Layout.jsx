@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
           appId='463297779202858'
         />
         <button className='back-to-top' onClick={scrollToTop}>
-          {showButton && <BsFillArrowUpCircleFill size={50} />}
+          {showButton && <BsFillArrowUpCircleFill size={50} className='arrow-icon' />}
         </button>
       </main>
       <footer>

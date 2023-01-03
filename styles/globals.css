@@ -78,6 +78,10 @@ h4 {
   transform: scale(1.1, 1.1);
 }
 
+.back-to-top .arrow-icon {
+  color: var(--text-black);
+}
+
 .Loading {
   text-align: center;
 }
