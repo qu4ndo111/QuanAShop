@@ -180,7 +180,7 @@ const ProductDetails = ({ product, products }) => {
                 <h2>You may also like</h2>
                 <div className='marquee'>
                     <div className='maylike-products-container'>
-                        {similarProduct.map((item) => (
+                        {similarProduct.slice(0, 6).map((item) => (
                             <Product key={item._id}
                                 product={item} />
                         ))}
