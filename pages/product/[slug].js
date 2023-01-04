@@ -243,7 +243,7 @@ const ProductDetails = ({ product, products }) => {
                 </div>
 
             </div> : (
-                <div className='Loading'>
+                <div className='product-loading'>
                     <Spinner />
                 </div>
             )}

@@ -712,6 +712,13 @@ h4 {
 
 /* Product page */
 
+.product-loading {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .product-detail-container {
   display: flex;
   gap: 40px;
