@@ -70,6 +70,8 @@ const Navbar = () => {
       return urlFor(user[0]?.avatar)
     } else if (user && !user[0]?.avatar && user[0]?.avatarURL) {
       return user[0]?.avatarURL
+    } else {
+      return null
     }
   }
 
