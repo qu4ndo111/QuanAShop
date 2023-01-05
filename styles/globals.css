@@ -1369,6 +1369,14 @@ h4 {
 }
 
 /* User profile */
+.user-not-exist {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15em;
+  align-items: center;
+}
+
 .user-profile-container {
   width: 60%;
   margin: 6em auto;

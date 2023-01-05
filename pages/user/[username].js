@@ -6,6 +6,7 @@ import { Context } from '../../context/StateContext'
 
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { Spinner } from '../../components'
 
 const userProfile = () => {
 
@@ -38,7 +39,7 @@ const userProfile = () => {
 
   return (
     <div>
-      {user && <div className='user-profile-container'>
+      {user ? <div className='user-profile-container'>
         <div className='user-image'>
           <div className='user-image-container'>
             <img src={userAvatar()} className='user-avatar' />
@@ -57,7 +58,11 @@ const userProfile = () => {
 
           <button type='button' className='edit-button' onClick={() => router.push(`${user[0].userName}/edit`)}>Edit profile</button>
         </div>
-      </div>}
+      </div> : (
+        <div className='user-not-exist'>
+          <Spinner />
+        </div>
+      )}
     </div>
   )
 }
