@@ -30,6 +30,10 @@ const ProductDetails = ({ product, products }) => {
     }, [])
 
     useEffect(() => {
+        setReviewData({
+            name: '',
+            comment: ''
+        })
         setLoading(true)
         const query = `*[_type == "product" && slug.current == '${slug.current}'][0]`
         client.fetch(query).then((data) => {
