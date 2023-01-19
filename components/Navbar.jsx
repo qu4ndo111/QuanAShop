@@ -21,6 +21,7 @@ const Navbar = () => {
   const router = useRouter()
 
   const ref = useRef()
+  const searchRef = useRef()
 
   const useStateContext = React.useContext(Context)
 
@@ -37,9 +38,21 @@ const Navbar = () => {
       
     }
 
-    document.addEventListener('click', closeProfile)
+    const closeSearchBar = (e) => {
+      const { target } = e
+      if(!searchRef.current.contains(target)) {
+        setSearching(false)
+      }
+    }
 
-    return () => document.removeEventListener('click', closeProfile)
+    document.addEventListener('click', closeProfile)
+    document.addEventListener('click', closeSearchBar)
+    
+
+    return () => {
+      document.removeEventListener('click', closeProfile)
+      document.removeEventListener('click', closeSearchBar)
+    }
   }, [])
   
 
@@ -82,7 +95,7 @@ const Navbar = () => {
           <Link href='/'>QuanA Headphones</Link>
         </p>
         <div className={openSearch ? 'navbar-search-open' : 'navbar-search'}>
-          <div className='search-items' >
+          <div className='search-items' ref={searchRef}>
             <input
               type={'text'}
               className={changeClassName()}
