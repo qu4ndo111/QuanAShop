@@ -90,7 +90,7 @@ export const StateContext = ({ children }) => {
         if (windowWidth >= 600) setOpenSearch(false)
         if (windowWidth <= 600) setSearching(false)
     }, [windowWidth])
-    
+
 
     const onAdd = (product, quantity) => {
         const checkProductInCart = cartItems.find(item => item._id === product._id)
@@ -208,7 +208,10 @@ export const StateContext = ({ children }) => {
 
             if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName) {
                 setRegisterSuccess(true)
+                setUserData(null)
                 setTimeout(() => router.push('/buyer/login'), 2000)
+            } else {
+                setUserExist(true)
             }
         })
     }
@@ -245,11 +248,6 @@ export const StateContext = ({ children }) => {
 
     function HandleSubmitRegister(event) {
         event.preventDefault()
-        userData?.map(users => {
-            if (users.userName === registerForm.userName) {
-                setUserExist(true)
-            }
-        })
         if (registerForm.password != registerForm.repeatPassword) {
             setNotMatchPassword(true)
         } else if (registerForm.password === registerForm.repeatPassword) {
@@ -330,9 +328,9 @@ export const StateContext = ({ children }) => {
                 setUser,
                 setReviewData,
                 setUser,
-                theme, 
+                theme,
                 setTheme,
-                checked, 
+                checked,
                 setChecked,
                 darkMode
             }}
