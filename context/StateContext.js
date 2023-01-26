@@ -193,27 +193,27 @@ export const StateContext = ({ children }) => {
     }
 
     function createAccount() {
-        const account = {
-            _id: registerForm.userName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-'),
-            _type: 'user',
-            userName: registerForm.userName,
-            password: registerForm.password,
-            createdDate: datetime,
-            avatarURL: 'https://cdn.landesa.org/wp-content/uploads/default-user-image.png'
-        }
 
-        client.createIfNotExists(account).then(() => {
+        const accountName = userData.find((element) => element.userName == registerForm.userName)
 
-            const accountName = userData.find((element) => element.userName == registerForm.userName)
+        if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName) {
+            const account = {
+                _id: registerForm.userName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-'),
+                _type: 'user',
+                userName: registerForm.userName,
+                password: registerForm.password,
+                createdDate: datetime,
+                avatarURL: 'https://cdn.landesa.org/wp-content/uploads/default-user-image.png'
+            }
 
-            if (registerForm.password === registerForm.repeatPassword && registerForm.userName !== accountName?.userName) {
+            client.createIfNotExists(account).then(() => {
                 setRegisterSuccess(true)
                 setUserData(null)
                 setTimeout(() => router.push('/buyer/login'), 2000)
-            } else {
-                setUserExist(true)
-            }
-        })
+            })
+        } else {
+            setUserExist(true)
+        }
     }
 
     function HandleLogin(event) {
