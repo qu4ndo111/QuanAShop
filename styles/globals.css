@@ -523,9 +523,11 @@ h4 {
   margin-top: .5em;
   margin-left: 60px;
   margin-right: 10%;
+  padding-left: 4%;
   padding-bottom: 2em;
   max-height: 380px;
   text-align: center;
+  overflow: hidden;
 }
 
 .product-card {
@@ -535,9 +537,7 @@ h4 {
   transition: transform 0.5s ease;
   color: var(--text-title);
   overflow: visible;
-  margin-bottom: 1em;
-  margin: auto;
-  padding: 2em 0;
+  margin: 2em auto;
 }
 
 .product-card:hover {
@@ -1594,6 +1594,7 @@ h4 {
   .best-selling-product-container {
     margin-left: 0;
     margin-right: 0;
+    padding-left: 0;
     justify-content: center;
     max-height: 500px;
     overflow-y: scroll;
