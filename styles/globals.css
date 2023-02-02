@@ -1933,6 +1933,14 @@ h4 {
     font-size: 1.1rem;
   }
 
+  .feedback {
+    margin: 40px 0;
+  }
+
+  .user-comment-box .user-date {
+    bottom: -20px;
+  }
+
 }
 
 
