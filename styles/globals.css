@@ -1386,6 +1386,9 @@ h4 {
   height: 60vh;
   color: var(--text-black);
 }
+.security {
+  height: 100vh;
+}
 
 .user-image {
   width: 30%;

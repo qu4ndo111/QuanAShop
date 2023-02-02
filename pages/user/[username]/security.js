@@ -30,7 +30,7 @@ const edit = () => {
     const [passwordShown, setPasswordShown] = useState(false)
 
     const { user, setUser } = useStateContext
-    
+
     const [userInfoForm, setUserInfoForm] = useState({
         newPassword: '',
         confirmNewPassword: '',
@@ -40,28 +40,28 @@ const edit = () => {
 
     function showHidePassword() {
         if (passwordShown) {
-          return (
-            <div className='showPassContainer change-user-password-container'>
-              <BiShow size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(false)} />
-              <p className='showPassword'>Show password</p>
-            </div>
-          )
+            return (
+                <div className='showPassContainer change-user-password-container'>
+                    <BiShow size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(false)} />
+                    <p className='showPassword'>Show password</p>
+                </div>
+            )
         } else {
-          return (
-            <div className='showPassContainer change-user-password-container'>
-              <BiHide size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(true)} />
-              <p className='showPassword'>Show password</p>
-            </div>
-          )
-          
-          
+            return (
+                <div className='showPassContainer change-user-password-container'>
+                    <BiHide size={25} className='icon-showhidePassword' onClick={() => setPasswordShown(true)} />
+                    <p className='showPassword'>Show password</p>
+                </div>
+            )
+
+
         }
-      }
+    }
 
     function HandleSubmitInfo(e) {
         e.preventDefault()
-        if(userInfoForm.newPassword === userInfoForm.confirmNewPassword) {
-            client.patch(user ? user[0]._id : null).set({password: userInfoForm.newPassword}).commit().then(() => router.back())
+        if (userInfoForm.newPassword === userInfoForm.confirmNewPassword) {
+            client.patch(user ? user[0]._id : null).set({ password: userInfoForm.newPassword }).commit().then(() => router.back())
         } else {
             setCheckInfo(true)
         }
@@ -69,7 +69,7 @@ const edit = () => {
 
     function handleChangeInfo(e) {
         setCheckInfo(false)
-        const {name, value} = e.target
+        const { name, value } = e.target
         setUserInfoForm(prev => {
             return {
                 ...prev,
@@ -80,42 +80,42 @@ const edit = () => {
 
 
     return (
-        <form className='user-profile-container' onSubmit={HandleSubmitInfo}>
-            <div className='user-info password'>
-                {checkInfo && <h3>Password do not match</h3>}
-                <div className='form-profile'>
-                    <label htmlFor='password'>New password</label>
-                    <input
-                        id='password'
-                        type={passwordShown ? 'text' : 'password'}
-                        placeholder='Enter your new password'
-                        onChange={handleChangeInfo}
-                        name='newPassword'
-                        required
-                    />
-                </div>
+        <div className='security'>
+            <form className='user-profile-container' onSubmit={HandleSubmitInfo}>
+                <div className='user-info password'>
+                    {checkInfo && <h3>Password do not match</h3>}
+                    <div className='form-profile'>
+                        <label htmlFor='password'>New password</label>
+                        <input
+                            id='password'
+                            type={passwordShown ? 'text' : 'password'}
+                            placeholder='Enter your new password'
+                            onChange={handleChangeInfo}
+                            name='newPassword'
+                            required
+                        />
+                    </div>
 
-
-                <div className='form-profile'>
-                    <label htmlFor='confirm-password'>Confirm new password</label>
-                    <input
-                        id='confirm-password'
-                        type={passwordShown ? 'text' : 'password'}
-                        placeholder='Confirm your new password'
-                        onChange={handleChangeInfo}
-                        name='confirmNewPassword'
-                        required
-                        className={checkInfo ? 'red' : ''}
-                    />
+                    <div className='form-profile'>
+                        <label htmlFor='confirm-password'>Confirm new password</label>
+                        <input
+                            id='confirm-password'
+                            type={passwordShown ? 'text' : 'password'}
+                            placeholder='Confirm your new password'
+                            onChange={handleChangeInfo}
+                            name='confirmNewPassword'
+                            required
+                            className={checkInfo ? 'red' : ''}
+                        />
+                    </div>
+                    {showHidePassword()}
+                    <div className='profile-btn-container'>
+                        <button type='button' onClick={() => router.back()}>Cancel</button>
+                        <button type='submit' >Submit</button>
+                    </div>
                 </div>
-                {showHidePassword()}
-                <div className='profile-btn-container'>
-                    <button type='button' onClick={() => router.back()}>Cancel</button>
-                    <button type='submit' >Submit</button>
-                </div>
-
-            </div>
-        </form>
+            </form>
+        </div>
     )
 }
 
