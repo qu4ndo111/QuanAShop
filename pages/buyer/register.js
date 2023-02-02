@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { client, urlFor } from '../../lib/client'
 import { BiShow, BiHide } from 'react-icons/bi'
 import Link from 'next/link'
@@ -8,7 +8,9 @@ import { GoogleLogin } from '@react-oauth/google'
 
 const register = ({ bannerData }) => {
 
-  const { passwordShown, setPasswordShown, notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setUserExist, setRegisterForm, registerSuccess, setLoginForm, setWrongAccount } = useContext(Context)
+  const [passwordShown, setPasswordShown] = useState(false)
+
+  const { notMatchPassword, HandleRegister, registerForm, responseGoogle, HandleSubmitRegister, userExist, setUserExist, setRegisterForm, registerSuccess, setLoginForm, setWrongAccount } = useContext(Context)
 
   useEffect(() => {
     if (notMatchPassword) {

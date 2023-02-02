@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { client, urlFor } from '../../lib/client'
 import { BiShow, BiHide } from 'react-icons/bi'
 import Link from 'next/link'
@@ -9,6 +9,8 @@ import { GoogleLogin } from '@react-oauth/google'
 
 
 const login = ({ bannerData }) => {
+
+  const [passwordShown, setPasswordShown] = useState(false)
 
   async function getUser() {
     const userInfo = localStorage.getItem('userInfo') !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : localStorage.clear()
@@ -23,7 +25,7 @@ const login = ({ bannerData }) => {
     getUser()
   }, [])
 
-  const { passwordShown, setPasswordShown, wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle, setRegisterSuccess, setUserExist, user, setUser } = useContext(Context)
+  const { wrongAccount, HandleSubmitLogin, loginForm, HandleLogin, responseGoogle, setRegisterSuccess, setUserExist, user, setUser } = useContext(Context)
 
   function showHidePassword() {
     if (passwordShown) {

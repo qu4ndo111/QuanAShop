@@ -37,7 +37,6 @@ export const StateContext = ({ children }) => {
     const [products, setProducts] = useState()
     const [productFound, setProductFound] = useState(false)
 
-    const [passwordShown, setPasswordShown] = useState(false)
     const [wrongAccount, setWrongAccount] = useState(false)
     const [notMatchPassword, setNotMatchPassword] = useState(false)
     const [userExist, setUserExist] = useState(false)
@@ -303,8 +302,6 @@ export const StateContext = ({ children }) => {
                 productFound,
                 products,
                 setSearching,
-                passwordShown,
-                setPasswordShown,
                 wrongAccount,
                 setWrongAccount,
                 notMatchPassword,
