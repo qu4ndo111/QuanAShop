@@ -84,9 +84,9 @@ const edit = () => {
             <div className='user-info password'>
                 {checkInfo && <h3>Password do not match</h3>}
                 <div className='form-profile'>
-                    <label htmlFor='name'>New password</label>
+                    <label htmlFor='password'>New password</label>
                     <input
-                        id='name'
+                        id='password'
                         type={passwordShown ? 'text' : 'password'}
                         placeholder='Enter your new password'
                         onChange={handleChangeInfo}
@@ -97,9 +97,9 @@ const edit = () => {
 
 
                 <div className='form-profile'>
-                    <label htmlFor='address'>Confirm new password</label>
+                    <label htmlFor='confirm-password'>Confirm new password</label>
                     <input
-                        id='address'
+                        id='confirm-password'
                         type={passwordShown ? 'text' : 'password'}
                         placeholder='Confirm your new password'
                         onChange={handleChangeInfo}

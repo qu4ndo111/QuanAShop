@@ -1703,6 +1703,10 @@ h4 {
 
   .product-card {
     margin: auto;
+    transition: none !important;
+  }
+  .product-card:hover {
+    transform: none;
   }
 
   .product {
@@ -1865,6 +1869,7 @@ h4 {
   .user-profile-container {
     flex-direction: column;
     width: 100%;
+    height: 100%;
   }
 
   .user-image {
@@ -1883,7 +1888,8 @@ h4 {
   .user-info {
     width: 100%;
     min-width: 0;
-    padding-bottom: 80px;
+    height: fit-content;
+    padding-bottom: 100px;
     margin-left: 0;
   }
 
@@ -1920,6 +1926,9 @@ h4 {
 
   }
 
+  .form-profile input {
+    font-size: 1.1rem;
+  }
 
 }
 
@@ -2004,7 +2013,7 @@ h4 {
   }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 320px) {
   .layout {
     padding-inline: 0;
   }
