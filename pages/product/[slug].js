@@ -8,6 +8,7 @@ import { Context } from '../../context/StateContext'
 import Spinner from '../../components/Spinner'
 
 import { nanoid } from 'nanoid'
+import moment from 'moment/moment'
 
 const ProductDetails = ({ product, products }) => {
 
@@ -42,11 +43,11 @@ const ProductDetails = ({ product, products }) => {
         })
     }, [slug.current])
 
-    var currentdate = new Date();
-    var datetime = currentdate.getFullYear() + "/" + currentdate.getMonth()
-        + "/" + currentdate.getDay() + " "
-        + currentdate.getHours() + ":"
-        + currentdate.getMinutes()
+    var date = moment()
+    var currentDate = date.format('DD/MM/YYYY HH:mm')
+
+    console.log(currentDate)
+    
 
     function userAvatar() {
         if (user && user[0].avatar) {
@@ -85,7 +86,7 @@ const ProductDetails = ({ product, products }) => {
     function HandleSubmitComment(event) {
         event.preventDefault()
         setLoading(true)
-        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: datetime, avatar: userAvatar() }]).commit().then(data => {
+        client.patch(_id).setIfMissing({ comment: [] }).insert('after', 'comment[-1]', [{ _key: nanoid(), name: setName(), comment: reviewData.comment, datetime: currentDate, avatar: userAvatar() }]).commit().then(data => {
             setUserComments(data.comment)
         }).then(() => {
             setReviewData(prev => {
