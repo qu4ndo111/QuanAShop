@@ -46,9 +46,6 @@ const ProductDetails = ({ product, products }) => {
     var date = moment()
     var currentDate = date.format('DD/MM/YYYY HH:mm')
 
-    console.log(currentDate)
-    
-
     function userAvatar() {
         if (user && user[0].avatar) {
             return user[0].avatar
