@@ -62,8 +62,12 @@ const ProductDetails = ({ product, products }) => {
 
     const { decQty, incQty, qty, onAdd, setShowCart, HandleChangeComment, reviewData, user, setReviewData, setUser } = useStateContext
 
-    const similarProduct = products?.filter(product => product.categories?.includes(categories[0]))
-
+    const similarProduct = products?.filter(product => {
+        if(product._id !== _id) {
+            return product.categories?.includes(categories[0])
+        }
+    })
+    
     const handleBuyNow = () => {
         onAdd(product, qty)
 
